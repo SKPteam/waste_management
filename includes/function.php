@@ -17,6 +17,12 @@ class Database
                 PDO::ATTR_EMULATE_PREPARES => false,
             ]);
             $this->createRegionTable();
+            $this->createBinCategoryTable();
+            $this->createCustomerTable();
+            $this->createOfficersTable();
+            $this->createPickUpRecordsTable();
+            $this->createRewardsTable();
+            $this->createFinesTable();
         } catch (PDOException $e) {
             die("Database Connection Failed: " . $e->getMessage());
         }
@@ -77,6 +83,7 @@ class Database
         $this->pdo->exec($sql);
     }
 
+    // Create PickUpRecords table if it doesn't exist
     private function createPickUpRecordsTable()
     {
         $sql = "CREATE TABLE IF NOT EXISTS pickup_records (
@@ -93,6 +100,7 @@ class Database
         $this->pdo->exec($sql);
     }
 
+    // Create Rewards table if it doesn't exist
     private function createRewardsTable()
     {
         $sql = "CREATE TABLE IF NOT EXISTS rewards (
@@ -107,6 +115,7 @@ class Database
         $this->pdo->exec($sql);
     }
 
+    // Create Fines table if it doesn't exist
     private function createFinesTable()
     {
         $sql = "CREATE TABLE IF NOT EXISTS fines (
