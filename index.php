@@ -13,6 +13,11 @@ if (empty($query)) {
     $this->pdo->exec($sql2);
 }
 
+
+//Check if error message is available
+if (isset($_GET['error'])) {
+    $error_message = $_GET['error'];
+}
 ?>
 
 <div class="container-scroller">
@@ -24,9 +29,21 @@ if (empty($query)) {
                         <div class="brand-logo">
                             <img src="assets/images/logo.svg" alt="logo">
                         </div>
-                        <h4>Welcome back!</h4>
-                        <h6 class="font-weight-light">Happy to see you again!</h6>
-                        <form class="pt-3" action="function/login.php" method="post">
+
+                        <?php
+                        if (isset($error_message)) { ?>
+                            <div class="alert alert-fill-danger" role="alert">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                <?= $error_message ?>
+                            </div>
+                        <?php } else { ?>
+
+                            <h4>Welcome back!</h4>
+
+                            <h6 class="font-weight-light">Happy to see you again!</h6>
+                        <?php } ?>
+
+                        <form class="pt-3" action="backend/login.php" method="post">
                             <div class="form-group">
                                 <label for="exampleInputEmail">Email</label>
                                 <div class="input-group">
@@ -47,7 +64,7 @@ if (empty($query)) {
                                         </span>
                                     </div>
                                     <select name="role" id="" class="form-control form-control-lg" required>
-                                        <option value=" customer" selected>Customer</option>
+                                        <option value="customer" selected>Customer</option>
                                         <option value="officer">Officer</option>
                                         <option value="admin">Admin</option>
                                     </select>
@@ -74,11 +91,11 @@ if (empty($query)) {
                                 <a href="#" class="auth-link text-black">Forgot password?</a>
                             </div>
                             <div class="my-3">
-                                <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">LOGIN</button>
+                                <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" name="submit">LOGIN</button>
                             </div>
-                            <!-- <div class="text-center mt-4 font-weight-light">
-                                Don't have an account? <a href="register-2.html" class="text-primary">Create</a>
-                            </div> -->
+                            <div class="text-center mt-4 font-weight-light">
+                                Don't have an account? <a href="register.php" class="text-primary">Create</a>
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -1,6 +1,12 @@
 <?php
+session_start();
 require_once('includes/config/path.php');
 require_once(ROOT_PATH . 'includes/header.php');
+require_once(ROOT_PATH . 'includes/function.php');
+$fun = new Database();
+if (!$fun->CheckLogin()) {
+    header("Location: index.php");
+}
 ?>
 
 <body>

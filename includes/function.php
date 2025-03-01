@@ -154,6 +154,7 @@ class Database
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
                 region_id INT NOT NULL,
+                email VARCHAR(255) NOT NULL UNIQUE,
                 password VARCHAR(255) NOT NULL,
                 address VARCHAR(255) NOT NULL,
                 phone_number VARCHAR(255)  NULL,
@@ -164,19 +165,6 @@ class Database
                 FOREIGN KEY (region_id) REFERENCES regions(id) ON DELETE CASCADE
             )";
         $this->pdo->exec($sql);
-        //Check if admin is already added
-        // $sqlCheck = "SELECT * FROM customers WHERE role = 'admin'";
-        // $adminCheck = $this->pdo->exec($sqlCheck);
-        // if ($adminCheck->num_rows > 0) {
-        //     $query = [
-
-        //         $sql2 = "INSERT INTO customers (name, region_code) VALUES('North Central','north_central')",
-        //         $sql2 = "INSERT INTO regions (region_name, region_code) VALUES('North West','north_west')",
-        //         $sql2 = "INSERT INTO regions (region_name, region_code) VALUES('North East','north_east')",
-        //     ];
-        // }
-        // var_dump($adminCheck);
-        // exit();
     }
 
     // Create Customer table if it doesn't exist    
@@ -191,6 +179,7 @@ class Database
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 region_id INT NOT NULL,
                 name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL UNIQUE,
                 password VARCHAR(255) NOT NULL,
                 status BOOLEAN DEFAULT TRUE,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -386,5 +375,14 @@ class Database
     public function lastInsertId()
     {
         return $this->pdo->lastInsertId();
+    }
+
+    public function CheckLogin()
+    {
+        if (isset($_SESSION['last_login_time'])) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -7,24 +7,44 @@
                 </div>
                 <div class="profile-name">
                     <p class="name">
-                        Welcome Jane
+                        Welcome <?= $_SESSION['role'] == 'admin' ? 'Admin' : $_SESSION['name'] ?>
                     </p>
                     <p class="designation">
-                        Super Admin
+                        <?= $_SESSION['role'] == 'admin' ? 'Administrator' : $_SESSION['role'] ?>
                     </p>
                 </div>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="index-2.html">
+            <a class="nav-link" href="dashboard.php">
                 <i class="fa fa-home menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="pages/widgets.html">
+            <a class="nav-link" href="region.php">
                 <i class="fa fa-puzzle-piece menu-icon"></i>
-                <span class="menu-title">Widgets</span>
+                <span class="menu-title">Regions</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="customer.php">
+                <i class="fa fa-puzzle-piece menu-icon"></i>
+                <span class="menu-title">Customers</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="category_bin.php">
+                <i class="fa fa-puzzle-piece menu-icon"></i>
+                <span class="menu-title">Category Bins</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="officer.php">
+                <i class="fa fa-puzzle-piece menu-icon"></i>
+                <span class="menu-title">Officers</span>
             </a>
         </li>
         <li class="nav-item">
