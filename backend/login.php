@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
                 header("Location: ../index.php?error=" . $error_message);
             } else {
                 if (!isset($_SESSION['user_info'])) {
-                    $_SESSION['role'] = "admin";
+                    $_SESSION['role'] = "officer";
                     $_SESSION['email'] = $query['email'];
                     $_SESSION['last_login_time'] = time();
                     header("Location: ../dashboard.php");
@@ -57,7 +57,7 @@ if (isset($_POST['submit'])) {
                 header("Location: ../index.php?error=" . $error_message);
             } else {
                 if (!isset($_SESSION['user_info'])) {
-                    $_SESSION['role'] = "admin";
+                    $_SESSION['role'] = "customer";
                     $_SESSION['email'] = $query['email'];
                     $_SESSION['last_login_time'] = time();
                     header("Location: ../dashboard.php");

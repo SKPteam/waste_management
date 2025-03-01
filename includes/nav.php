@@ -30,7 +30,7 @@
         <li class="nav-item">
             <a class="nav-link" href="customer.php">
                 <i class="fa fa-puzzle-piece menu-icon"></i>
-                <span class="menu-title">Customers</span>
+                <span class="menu-title">Cus</span>
             </a>
         </li>
 
