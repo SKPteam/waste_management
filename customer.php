@@ -38,7 +38,16 @@ if (isset($_GET['success'])) {
                         <div class="row">
                             <div class="col-12">
                                 <?php
-                                $sql = "SELECT customers.*,regions.region_name FROM customers 
+                                $sql = "SELECT 
+                                customers.id as id,
+                                customers.name as name,
+                                customers.email as email,
+                                customers.phone_number as phone_number,
+                                customers.address as address,
+                                customers.preferred_pickup_day as preferred_pickup_day,
+                                customers.created_at as created_at,
+                                customers.status as status,
+                                regions.region_name FROM customers 
                                 JOIN regions ON customers.region_id = customers.region_id ORDER BY created_at ASC";
                                 $query = $db->fetchAll($sql);
                                 if (empty($query)) { ?>
@@ -65,6 +74,7 @@ if (isset($_GET['success'])) {
                                             <tbody>
 
                                                 <?php
+                                                // var_dump($query);
                                                 $i = 1;
                                                 foreach ($query as $result) { ?>
                                                     <tr>

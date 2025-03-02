@@ -160,8 +160,9 @@ if (isset($_GET['success'])) {
                             <div class="col-12">
                                 <?php
                                 $id = $_SESSION['id'];
-                                $sql = "SELECT bin_categories.category_name, pickup_records.* FROM pickup_records
+                                $sql = "SELECT bin_categories.category_name,officers.name, pickup_records.* FROM pickup_records
                                 JOIN bin_categories on pickup_records.bin_category_id = bin_category_id
+                                JOIN officers on pickup_records.officer_id = officer_id
                                 WHERE customer_id =:customer_id ORDER BY created_at ASC";
                                 $query = $db->fetchAll($sql, [
                                     'customer_id' => $id
@@ -197,7 +198,7 @@ if (isset($_GET['success'])) {
                                                             <?= $i++ ?>
                                                         </td>
                                                         <td>
-                                                            <?= $result['officer_id'] != '' ? $result['officer_id'] : 'Not Yet Assigned' ?>
+                                                            <?= $result['officer_id'] != '' ? $result['name'] : 'Not Yet Assigned' ?>
                                                         </td>
                                                         <td>
                                                             <?= $result['category_name'] ?>

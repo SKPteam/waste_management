@@ -27,7 +27,7 @@ if (!$fun->CheckLogin()) {
                     </h3>
                 </div>
                 <?php
-                if ($_SESSION['role'] == 'admin') {
+                if ($_SESSION['role'] == 'Admin') {
                     require_once('admin_dashboard.php');
                 } elseif ($_SESSION['role'] == 'officer') {
                     require_once('officer_dashboard.php');

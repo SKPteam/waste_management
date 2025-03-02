@@ -4,8 +4,9 @@ require_once(ROOT_PATH . 'includes/function.php');
 $db = new Database();
 
 $id = $_SESSION['id'];
-$sql = "SELECT bin_categories.category_name, pickup_records.* FROM pickup_records
+$sql = "SELECT bin_categories.category_name,officers.name, pickup_records.* FROM pickup_records
                                 JOIN bin_categories on pickup_records.bin_category_id = bin_category_id
+                                JOIN officers on pickup_records.officer_id = officer_id
                                 WHERE customer_id =:customer_id ORDER BY created_at ASC LIMIT 5";
 $query = $db->fetchAll($sql, [
     'customer_id' => $id
@@ -92,24 +93,22 @@ $query = $db->fetchAll($sql, [
                                             <?= $i++ ?>
                                         </td>
                                         <td class="font-weight-bold">
-                                            <?= $result['officer_id'] != '' ? $result['officer_id'] : 'Not Yet Assigned' ?>
+                                            <?= $result['officer_id'] != '' ? ucfirst($result['name']) : 'Not Yet Assigned' ?>
                                         </td>
                                         <td class="font-weight-bold">
-                                            <?= $result['category_name'] ?>
+                                            <?= ucfirst($result['category_name']) ?>
                                         </td>
                                         <td class="text-muted">
                                             <?= $result['pickup_day'] ?>
                                         </td>
                                         <td>
                                             <?= $result['neatness_score'] ?>
-
                                         </td>
                                         <td>
                                             <?= $result['comment'] == '' ? 'No comment' : $result['comment'] ?>
                                         </td>
                                         <td>
                                             <?= $result['created_at'] ?>
-
                                         </td>
                                         <td>
                                             <?php
