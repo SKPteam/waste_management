@@ -89,7 +89,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="pickup_records.php">
+                <a class="nav-link" href="officer_pickup.php">
                     <i class="fa fa-puzzle-piece menu-icon"></i>
                     <span class="menu-title">Pickups</span>
                 </a>
