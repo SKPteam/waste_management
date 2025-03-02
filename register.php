@@ -56,7 +56,16 @@ $result = $db->fetchAll($sql);
                                 <input type="text" name="phone_number" required class="form-control form-control-lg" placeholder="Phone Number" required>
                             </div>
                             <div class="form-group">
-                                <input type="date" name="pickup_date" required class="form-control form-control-lg" placeholder="Pickup date" required>
+                                <select name="preferred_pickup_day" class="form-control form-control-lg" required>
+                                    <option value="" selected disabled>Select Pickup day</option>
+                                    <option value="Sunday">Sunday</option>
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                </select>
                             </div>
                             <div class="mb-4">
                                 <div class="form-check">

@@ -7,82 +7,129 @@
                 </div>
                 <div class="profile-name">
                     <p class="name">
-                        Welcome <?= $_SESSION['role'] == 'admin' ? 'Admin' : $_SESSION['name'] ?>
+                        Welcome <?= $_SESSION['role'] == 'admin' ? 'Admin' : ucfirst($_SESSION['name']) ?>
                     </p>
                     <p class="designation">
-                        <?= $_SESSION['role'] == 'admin' ? 'Administrator' : $_SESSION['role'] ?>
+                        <?= $_SESSION['role'] == 'admin' ? 'Administrator' : ucfirst($_SESSION['role']) ?>
                     </p>
                 </div>
             </div>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" href="dashboard.php">
                 <i class="fa fa-home menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="region.php">
-                <i class="fa fa-puzzle-piece menu-icon"></i>
-                <span class="menu-title">Regions</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="customer.php">
-                <i class="fa fa-puzzle-piece menu-icon"></i>
-                <span class="menu-title">Cus</span>
-            </a>
-        </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="category_bin.php">
-                <i class="fa fa-puzzle-piece menu-icon"></i>
-                <span class="menu-title">Category Bins</span>
-            </a>
-        </li>
+        <?php
+        $role = $_SESSION['role'];
+        if ($role == "admin") { ?>
 
-        <li class="nav-item">
-            <a class="nav-link" href="officer.php">
-                <i class="fa fa-puzzle-piece menu-icon"></i>
-                <span class="menu-title">Officers</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
-                <i class="fab fa-trello menu-icon"></i>
-                <span class="menu-title">Page Layouts</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="page-layouts">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="pages/layout/boxed-layout.html">Boxed</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/layout/rtl-layout.html">RTL</a></li>
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="pages/layout/horizontal-menu.html">Horizontal Menu</a></li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item d-none d-lg-block">
-            <a class="nav-link" data-toggle="collapse" href="#sidebar-layouts" aria-expanded="false" aria-controls="sidebar-layouts">
-                <i class="fas fa-columns menu-icon"></i>
-                <span class="menu-title">Sidebar Layouts</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="sidebar-layouts">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/layout/compact-menu.html">Compact menu</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-collapsed.html">Icon menu</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-hidden.html">Sidebar Hidden</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-hidden-overlay.html">Sidebar Overlay</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-fixed.html">Sidebar Fixed</a></li>
-                </ul>
-            </div>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="region.php">
+                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <span class="menu-title">Regions</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="customer.php">
+                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <span class="menu-title">Customer</span>
+                </a>
+            </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="pages/documentation.html">
-                <i class="far fa-file-alt menu-icon"></i>
-                <span class="menu-title">Documentation</span>
-            </a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="category_bin.php">
+                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <span class="menu-title">Category Bins</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="officer.php">
+                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <span class="menu-title">Officers</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pages/documentation.html">
+                    <i class="far fa-file-alt menu-icon"></i>
+                    <span class="menu-title">Rewards</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="admin_pickup.php">
+                    <i class="far fa-file-alt menu-icon"></i>
+                    <span class="menu-title">Pickups</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="admin_fine.php">
+                    <i class="far fa-file-alt menu-icon"></i>
+                    <span class="menu-title">Fines</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="admin_payout.php">
+                    <i class="far fa-file-alt menu-icon"></i>
+                    <span class="menu-title">Payouts</span>
+                </a>
+            </li>
+        <?php } elseif ($role == "officer") { ?>
+
+            <li class="nav-item">
+                <a class="nav-link" href="officer_customer.php">
+                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <span class="menu-title">Customer</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="pickup_records.php">
+                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <span class="menu-title">Pickups</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="officer_reward.php">
+                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <span class="menu-title">Rewards</span>
+                </a>
+            </li>
+
+        <?php } else { ?>
+
+            <li class="nav-item">
+                <a class="nav-link" href="customer_pickup.php">
+                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <span class="menu-title">Pickups</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="customer_rewards_bin.php">
+                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <span class="menu-title">Rewards</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="customer_fine.php">
+                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <span class="menu-title">Fines</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pages/documentation.html">
+                    <i class="far fa-file-alt menu-icon"></i>
+                    <span class="menu-title">Payouts</span>
+                </a>
+            </li>
+        <?php }
+        ?>
+
     </ul>
 </nav>

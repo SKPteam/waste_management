@@ -22,7 +22,9 @@ if (isset($_POST['submit'])) {
                 header("Location: ../index.php?error=" . $error_message);
             } else {
                 if (!isset($_SESSION['user_info'])) {
+                    $_SESSION['id'] = $query['id'];
                     $_SESSION['role'] = "admin";
+                    $_SESSION['name'] = "Administrator";
                     $_SESSION['email'] = $query['email'];
                     $_SESSION['last_login_time'] = time();
                     header("Location: ../dashboard.php");
@@ -31,16 +33,18 @@ if (isset($_POST['submit'])) {
                 }
                 // var_dump($query);
             }
-        } elseif ($role == "officers") {
+        } elseif ($role == "officer") {
             //Login to Officer
-            $sql = "SELECT email, password FROM officers WHERE email = :email";
+            $sql = "SELECT name,email, password FROM officers WHERE email = :email";
             $query = $db->fetch($sql, ['email' => $email]);
             if (empty($query)) {
                 $error_message = "Invalid credentials,Kindly check.";
                 header("Location: ../index.php?error=" . $error_message);
             } else {
                 if (!isset($_SESSION['user_info'])) {
+                    $_SESSION['id'] = $query['id'];
                     $_SESSION['role'] = "officer";
+                    $_SESSION['name'] = $query['name'];
                     $_SESSION['email'] = $query['email'];
                     $_SESSION['last_login_time'] = time();
                     header("Location: ../dashboard.php");
@@ -57,7 +61,9 @@ if (isset($_POST['submit'])) {
                 header("Location: ../index.php?error=" . $error_message);
             } else {
                 if (!isset($_SESSION['user_info'])) {
+                    $_SESSION['id'] = $query['id'];
                     $_SESSION['role'] = "customer";
+                    $_SESSION['name'] = $query['name'];
                     $_SESSION['email'] = $query['email'];
                     $_SESSION['last_login_time'] = time();
                     header("Location: ../dashboard.php");
@@ -68,6 +74,7 @@ if (isset($_POST['submit'])) {
             }
         } else {
             $error_message = "Select an account type";
+            header("Location: ../index.php?error=" . $error_message);
         }
     }
 }

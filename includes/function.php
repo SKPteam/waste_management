@@ -158,7 +158,7 @@ class Database
                 password VARCHAR(255) NOT NULL,
                 address VARCHAR(255) NOT NULL,
                 phone_number VARCHAR(255)  NULL,
-                pickup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                preferred_pickup_day VARCHAR(255) NOT NULL,
                 status BOOLEAN DEFAULT TRUE,
                 role ENUM('customer', 'admin') DEFAULT 'customer',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -199,7 +199,7 @@ class Database
         $sql = "CREATE TABLE IF NOT EXISTS pickup_records (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 customer_id INT NOT NULL,
-                officer_id INT NOT NULL,
+                officer_id INT NULL,
                 bin_category_id INT NOT NULL,
                 pickup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 neatness_score INT(10) DEFAULT 0,

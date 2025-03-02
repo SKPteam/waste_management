@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
     $region =  trim(htmlspecialchars($_POST['region_id'], ENT_QUOTES, "UTF-8"));
     $address =  trim(htmlspecialchars($_POST['address'], ENT_QUOTES, "UTF-8"));
     $phone_number =  trim(htmlspecialchars($_POST['phone_number'], ENT_QUOTES, "UTF-8"));
-    $pickup_date =  trim(htmlspecialchars($_POST['pickup_date'], ENT_QUOTES, "UTF-8"));
+    $pickup_date =  trim(htmlspecialchars($_POST['preferred_pickup_day'], ENT_QUOTES, "UTF-8"));
 
     if (
         $name == "" || $email == '' || $region == ''
@@ -25,14 +25,14 @@ if (isset($_POST['submit'])) {
         $sql = "SELECT email, password FROM admins WHERE email = :email";
         $query = $db->fetch($sql, ['email' => $email]);
         if (empty($$query)) {
-            $insertData = $db->execute("INSERT INTO customers (name, region_id,email,password,address,phone_number,pickup_date) VALUES(:name, :region_id,:email,:password,:address,:phone_number,:pickup_date)", [
+            $insertData = $db->execute("INSERT INTO customers (name, region_id,email,password,address,phone_number,preferred_pickup_day) VALUES(:name, :region_id,:email,:password,:address,:phone_number,:preferred_pickup_day)", [
                 "name" => $name,
                 "region_id" => $region,
                 "email" => $email,
                 "password" => md5($password),
                 "address" => $address,
                 "phone_number" => $phone_number,
-                "pickup_date" => $pickup_date,
+                "preferred_pickup_day" => $pickup_date,
             ]);
 
             if ($insertData) {

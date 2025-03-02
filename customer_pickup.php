@@ -28,18 +28,23 @@ if (isset($_GET['success'])) {
             <div class="content-wrapper">
                 <div class="page-header">
                     <h3 class="page-title">
-                        Customers
+                        <a href="add_pick.php" class="btn btn-info mr-2">Create Pickup</a>
+
                     </h3>
 
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Data table</h4>
+                        <h4 class="card-title">My Pickups</h4>
                         <div class="row">
                             <div class="col-12">
                                 <?php
-                                $sql = "SELECT * FROM customers ORDER BY created_at ASC";
-                                $query = $db->fetchAll($sql);
+                                $id = $_SESSION['id'];
+                                $sql = "SELECT * FROM pickup_records WHERE customer_id =:customer_id ORDER BY created_at ASC";
+                                $query = $db->fetchAll($sql, [
+                                    'customer_id' => $id
+                                ]);
+
                                 if (empty($query)) { ?>
                                     <div class="alert alert-fill-danger" role="alert">
                                         <i class="fa fa-exclamation-triangle"></i>
