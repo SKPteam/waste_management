@@ -15,13 +15,13 @@ if (isset($_POST['submit'])) {
         if ($role == "admin") {
             //Admin Login
 
-            $sql = "SELECT email, password FROM admins WHERE email = :email";
+            $sql = "SELECT id,email, password FROM admins WHERE email = :email";
             $query = $db->fetch($sql, ['email' => $email]);
             if (empty($query)) {
                 $error_message = "Invalid credentials,Kindly check.";
                 header("Location: ../index.php?error=" . $error_message);
             } else {
-                if (!isset($_SESSION['user_info'])) {
+                if (!isset($_SESSION['last_login_time'])) {
                     $_SESSION['id'] = $query['id'];
                     $_SESSION['role'] = "admin";
                     $_SESSION['name'] = "Administrator";
@@ -35,13 +35,13 @@ if (isset($_POST['submit'])) {
             }
         } elseif ($role == "officer") {
             //Login to Officer
-            $sql = "SELECT name,email, password FROM officers WHERE email = :email";
+            $sql = "SELECT id,name,email, password FROM officers WHERE email = :email";
             $query = $db->fetch($sql, ['email' => $email]);
             if (empty($query)) {
                 $error_message = "Invalid credentials,Kindly check.";
                 header("Location: ../index.php?error=" . $error_message);
             } else {
-                if (!isset($_SESSION['user_info'])) {
+                if (!isset($_SESSION['last_login_time'])) {
                     $_SESSION['id'] = $query['id'];
                     $_SESSION['role'] = "officer";
                     $_SESSION['name'] = $query['name'];
@@ -54,13 +54,13 @@ if (isset($_POST['submit'])) {
                 // var_dump($query);
             }
         } elseif ($role == "customer") {
-            $sql = "SELECT email, password FROM customers WHERE email = :email";
+            $sql = "SELECT id,email, password FROM customers WHERE email = :email";
             $query = $db->fetch($sql, ['email' => $email]);
             if (empty($query)) {
                 $error_message = "Invalid credentials,Kindly check.";
                 header("Location: ../index.php?error=" . $error_message);
             } else {
-                if (!isset($_SESSION['user_info'])) {
+                if (!isset($_SESSION['last_login_time'])) {
                     $_SESSION['id'] = $query['id'];
                     $_SESSION['role'] = "customer";
                     $_SESSION['name'] = $query['name'];

@@ -38,7 +38,8 @@ if (isset($_GET['success'])) {
                         <div class="row">
                             <div class="col-12">
                                 <?php
-                                $sql = "SELECT * FROM customers ORDER BY created_at ASC";
+                                $sql = "SELECT customers.*,regions.region_name FROM customers 
+                                JOIN regions ON customers.region_id = customers.region_id ORDER BY created_at ASC";
                                 $query = $db->fetchAll($sql);
                                 if (empty($query)) { ?>
                                     <div class="alert alert-fill-danger" role="alert">
@@ -75,7 +76,7 @@ if (isset($_GET['success'])) {
                                                         </td>
 
                                                         <td>
-                                                            <?= $result['region_id'] ?>
+                                                            <?= $result['region_name'] ?>
                                                         </td>
                                                         <td>
                                                             <?= $result['email'] ?>

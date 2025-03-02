@@ -201,7 +201,7 @@ class Database
                 customer_id INT NOT NULL,
                 officer_id INT NULL,
                 bin_category_id INT NOT NULL,
-                pickup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                pickup_day VARCHAR(5000) NULL,
                 neatness_score INT(10) DEFAULT 0,
                 comment VARCHAR(5000) NULL,
                 status ENUM('pending', 'completed', 'canceled','missed') DEFAULT 'pending',
