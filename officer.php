@@ -68,7 +68,7 @@ if (isset($_GET['success'])) {
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputCode">Password</label>
-                                            <input type="password" name="password" value=""  class="form-control" placeholder="region code">
+                                            <input type="password" name="password" value="" class="form-control" placeholder="region code">
                                         </div>
                                         <input type="hidden" name="action" value="update">
                                         <input type="hidden" name="id" value="<?= $id ?? '' ?>">
@@ -101,16 +101,16 @@ if (isset($_GET['success'])) {
                                     <?php } ?>
                                     <form class="forms-sample" action="backend/officer.php" method="post">
 
-                                    <div class="form-group">
-                                    <select name="region_id" class="form-control form-control-lg" required>
-                                        <option value="" selected disabled>Select region</option>
-                                        <?php
-                                        foreach ($result as $region) { ?>
-                                            <option value="<?= $region['id'] ?>"><?= $region['region_name'] ?></option>
-                                        <?php }
-                                        ?>
-                                    </select>
-                                </div>
+                                        <div class="form-group">
+                                            <select name="region_id" class="form-control form-control-lg" required>
+                                                <option value="" selected disabled>Select region</option>
+                                                <?php
+                                                foreach ($result as $region) { ?>
+                                                    <option value="<?= $region['id'] ?>"><?= $region['region_name'] ?></option>
+                                                <?php }
+                                                ?>
+                                            </select>
+                                        </div>
                                         <div class="form-group">
                                             <label for="exampleInputUsername1">Name</label>
                                             <input type="text" name="name" required class="form-control" id="exampleInputUsername1" placeholder="Name">
@@ -134,12 +134,12 @@ if (isset($_GET['success'])) {
 
                 </div>
                 <?php
-                $sql = "SELECT * FROM officers";
+                $sql = "SELECT regions.region_name, officers.* FROM officers JOIN regions on officers.region_id = regions.id";
                 $query = $db->fetchAll($sql);
                 if (empty($query)) { ?>
-                     <div class="alert alert-warning" role="alert">
-                    No Data available
-                  </div>
+                    <div class="alert alert-warning" role="alert">
+                        No Data available
+                    </div>
                 <?php } else { ?>
                     <div class="row">
                         <div class="col-md-8 grid-margin stretch-card">
@@ -153,6 +153,7 @@ if (isset($_GET['success'])) {
                                         <table class="table">
                                             <thead>
                                                 <tr>
+                                                    <th>S/N</th>
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Region</th>
@@ -162,8 +163,12 @@ if (isset($_GET['success'])) {
                                             </thead>
                                             <tbody>
                                                 <?php
+                                                $i = 1;
                                                 foreach ($query as $result) { ?>
                                                     <tr>
+                                                        <td class="font-weight-bold">
+                                                            <?= $i++ ?>
+                                                        </td>
                                                         <td class="font-weight-bold">
                                                             <?= $result['name'] ?>
                                                         </td>
@@ -171,7 +176,7 @@ if (isset($_GET['success'])) {
                                                             <?= $result['email'] ?>
                                                         </td>
                                                         <td class="text-muted">
-                                                            <?= $result['region_id'] ?>
+                                                            <?= $result['region_name'] ?>
 
                                                         </td>
                                                         <td>

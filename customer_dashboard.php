@@ -5,8 +5,8 @@ $db = new Database();
 
 $id = $_SESSION['id'];
 $sql = "SELECT bin_categories.category_name,officers.name, pickup_records.* FROM pickup_records
-                                JOIN bin_categories on pickup_records.bin_category_id = bin_category_id
-                                JOIN officers on pickup_records.officer_id = officer_id
+                                JOIN bin_categories on pickup_records.bin_category_id = bin_categories.id
+                                JOIN officers on pickup_records.officer_id = officers.id
                                 WHERE customer_id =:customer_id ORDER BY created_at ASC LIMIT 5";
 $query = $db->fetchAll($sql, [
     'customer_id' => $id

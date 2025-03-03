@@ -3,9 +3,10 @@ require_once('includes/config/path.php');
 require_once(ROOT_PATH . 'includes/function.php');
 $db = new Database();
 
-$sql = "SELECT bin_categories.category_name,officers.name, pickup_records.* FROM pickup_records
-                                JOIN bin_categories on pickup_records.bin_category_id = bin_category_id
-                                JOIN officers on pickup_records.officer_id = officer_id
+$sql = "SELECT bin_categories.category_name,officers.name,customers.name as customer_name, pickup_records.* FROM pickup_records
+                                JOIN bin_categories on pickup_records.bin_category_id = bin_categories.id
+                                JOIN officers on pickup_records.officer_id = officers.id
+                                JOIN customers on pickup_records.customer_id = customers.id
                                 ORDER BY created_at ASC LIMIT 5";
 
 $query = $db->fetchAll($sql);
@@ -89,6 +90,7 @@ $query = $db->fetchAll($sql);
                                 <thead>
                                     <tr>
                                         <th>S/N</th>
+                                        <th>Customer</th>
                                         <th>Officer</th>
                                         <th>Category</th>
                                         <th>Pickup Day</th>
@@ -107,6 +109,9 @@ $query = $db->fetchAll($sql);
                                         <tr>
                                             <td class="font-weight-bold">
                                                 <?= $i++ ?>
+                                            </td>
+                                            <td class="font-weight-bold">
+                                                <?= $result['customer_id'] != '' ? ucfirst($result['customer_name']) : 'Not Yet Assigned' ?>
                                             </td>
                                             <td class="font-weight-bold">
                                                 <?= $result['officer_id'] != '' ? ucfirst($result['name']) : 'Not Yet Assigned' ?>

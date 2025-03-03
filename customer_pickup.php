@@ -11,7 +11,7 @@ $result = $db->fetchAll($sql, [
 
 $user_id = $_SESSION['id'];
 $sql = "SELECT customers.*, regions.* FROM region_customers 
-JOIN customers ON region_customers.customer_id = customer_id
+JOIN customers ON region_customers.customer_id = customers.id
 JOIN regions ON region_customers.region_id = regions.id WHERE customer_id=:customer_id";
 $userRegion = $db->fetch($sql, [
     'customer_id' => $user_id
@@ -161,8 +161,8 @@ if (isset($_GET['success'])) {
                                 <?php
                                 $id = $_SESSION['id'];
                                 $sql = "SELECT bin_categories.category_name,officers.name, pickup_records.* FROM pickup_records
-                                JOIN bin_categories on pickup_records.bin_category_id = bin_category_id
-                                JOIN officers on pickup_records.officer_id = officer_id
+                                JOIN bin_categories on pickup_records.bin_category_id = bin_categories.id
+                                JOIN officers on pickup_records.officer_id = officers.id
                                 WHERE customer_id =:customer_id ORDER BY created_at ASC";
                                 $query = $db->fetchAll($sql, [
                                     'customer_id' => $id

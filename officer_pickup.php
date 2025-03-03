@@ -111,8 +111,8 @@ if (isset($_GET['success'])) {
                                 <?php
                                 $id = $_SESSION['id'];
                                 $sql = "SELECT bin_categories.category_name,customers.name, pickup_records.* FROM pickup_records
-                                JOIN bin_categories on pickup_records.bin_category_id = bin_category_id
-                                JOIN customers on pickup_records.customer_id = customer_id
+                                JOIN bin_categories on pickup_records.bin_category_id = bin_categories.id
+                                JOIN customers on pickup_records.customer_id = customers.id
                                 WHERE officer_id =:officer_id ORDER BY created_at ASC";
                                 $query = $db->fetchAll($sql, [
                                     'officer_id' => $id
