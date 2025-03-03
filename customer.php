@@ -101,7 +101,7 @@ if (isset($_GET['success'])) {
                                                             <?= $result['preferred_pickup_day'] ?>
                                                         </td>
                                                         <td>
-                                                            <?= $result['created_at'] ?>
+                                                            <?= date('d-M-Y', strtotime($result['created_at'])) ?>
                                                         </td>
                                                         <td>
                                                             <button class="badge badge-success">Status</button>

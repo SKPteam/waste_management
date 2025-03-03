@@ -60,14 +60,14 @@ if (isset($_GET['success'])) {
                                     <form class="forms-sample" action="backend/region.php" method="post">
                                         <div class="form-group">
                                             <label for="exampleInputUsername1">Region name</label>
-                                            <input type="text" name="name" value="<?= $query['region_name'] ?? ''?>" required class="form-control" id="exampleInputUsername1" placeholder="Region name">
+                                            <input type="text" name="name" value="<?= $query['region_name'] ?? '' ?>" required class="form-control" id="exampleInputUsername1" placeholder="Region name">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputCode">Region codes</label>
-                                            <input type="text" name="code" value="<?= $query['region_code'] ?? ''?>" required class="form-control" placeholder="region code">
+                                            <input type="text" name="code" value="<?= $query['region_code'] ?? '' ?>" required class="form-control" placeholder="region code">
                                         </div>
                                         <input type="hidden" name="action" value="update">
-                                        <input type="hidden" name="id" value="<?= $id ?? ''?>">
+                                        <input type="hidden" name="id" value="<?= $id ?? '' ?>">
 
                                         <button type="submit" class="btn btn-primary mr-2" name="submit">Update</button>
                                     </form>
@@ -151,8 +151,7 @@ if (isset($_GET['success'])) {
 
                                                         </td>
                                                         <td>
-                                                            <?= $result['created_at'] ?>
-
+                                                            <?= date('d-M-Y', strtotime($result['created_at'])) ?>
                                                         </td>
                                                         <td>
                                                             <a href="region.php?action=update&id=<?= $result['id'] ?>" class="badge badge-success badge-pill">Action</a>

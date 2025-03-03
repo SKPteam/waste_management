@@ -129,7 +129,7 @@ $query = $db->fetchAll($sql);
                                                 <?= $result['comment'] == '' ? 'No comment' : $result['comment'] ?>
                                             </td>
                                             <td>
-                                                <?= $result['created_at'] ?>
+                                                <?= date('d-M-Y', strtotime($result['created_at'])) ?>
                                             </td>
                                             <td>
                                                 <?php

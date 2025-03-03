@@ -170,7 +170,7 @@ if (isset($_GET['success'])) {
                                                             <?= $i++ ?>
                                                         </td>
                                                         <td class="font-weight-bold">
-                                                            <?= $result['name'] ?>
+                                                            <?= ucfirst($result['name']) ?>
                                                         </td>
                                                         <td class="font-weight-bold">
                                                             <?= $result['email'] ?>
@@ -180,8 +180,8 @@ if (isset($_GET['success'])) {
 
                                                         </td>
                                                         <td>
-                                                            <?= $result['created_at'] ?>
 
+                                                            <?= date('d-M-Y', strtotime($result['created_at'])) ?>
                                                         </td>
                                                         <td>
                                                             <a href="officer.php?action=update&id=<?= $result['id'] ?>" class="badge badge-success badge-pill">Action</a>

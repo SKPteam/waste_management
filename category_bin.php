@@ -151,8 +151,7 @@ if (isset($_GET['success'])) {
 
                                                         </td>
                                                         <td>
-                                                            <?= $result['created_at'] ?>
-
+                                                            <?= date('d-M-Y', strtotime($result['created_at'])) ?>
                                                         </td>
                                                         <td>
                                                             <a href="region.php?action=update&id=<?= $result['id'] ?>" class="badge badge-success badge-pill">Action</a>
