@@ -111,7 +111,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="customer_rewards_bin.php">
+                <a class="nav-link" href="customer_reward.php">
                     <i class="fa fa-puzzle-piece menu-icon"></i>
                     <span class="menu-title">Rewards</span>
                 </a>

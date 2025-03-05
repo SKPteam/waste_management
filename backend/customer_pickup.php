@@ -17,30 +17,41 @@ if (isset($_POST['submit'])) {
         header("Location: ../customer_pickup.php?error=" . $error_message);
     } else {
         if ($action == "create") {
-            $insertData = $db->execute("INSERT INTO pickup_records (customer_id, bin_category_id,pickup_day) VALUES(:customer_id,:bin_category_id,:pickup_day)", [
-                'customer_id' => $customer_id,
-                'bin_category_id' => $bin_category_id,
-                'pickup_day' => $pickup_day
+
+            //check if customer have create 5 pickups with the current months
+            $sql = "SELECT id FROM pickup_records
+            WHERE customer_id =:customer_id AND MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE())";
+            $query = $db->fetchAll($sql, [
+                'customer_id' => $customer_id
             ]);
-            if ($insertData) {
-
-                //Insert to Bin Category
-                $db->execute("INSERT INTO bin_category_pickups (bin_category_id, pickup_record_id) VALUES(:bin_category_id, :pickup_record_id)", [
-                    'bin_category_id' => $bin_category_id,
-                    'pickup_record_id' => $db->lastInsertId(),
-                ]);
-
-                //Customer Pick Up
-                $db->execute("INSERT INTO customer_pickups (pickup_record_id, customer_id) VALUES(:pickup_record_id, :customer_id)", [
-                    'pickup_record_id' => $db->lastInsertId(),
-                    'customer_id' => $customer_id,
-                ]);
-
-                $success_message = "New Pickup created";
-                header("Location: ../customer_pickup.php?success=" . $success_message);
-            } else {
-                $error_message = "Unable to create region, contact support";
+            if (count($query) >= 5) {
+                $error_message = "Sorry, You have reach maximium for this month, Try again next year";
                 header("Location: ../customer_pickup.php?error=" . $error_message);
+            } else {
+
+                $insertData = $db->execute("INSERT INTO pickup_records (customer_id, bin_category_id,pickup_day) VALUES(:customer_id,:bin_category_id,:pickup_day)", [
+                    'customer_id' => $customer_id,
+                    'bin_category_id' => $bin_category_id,
+                    'pickup_day' => $pickup_day
+                ]);
+                if ($insertData) {
+
+                    //Insert to Bin Category
+                    $db->execute("INSERT INTO bin_category_pickups (bin_category_id, pickup_record_id) VALUES(:bin_category_id, :pickup_record_id)", [
+                        'bin_category_id' => $bin_category_id,
+                        'pickup_record_id' => $db->lastInsertId(),
+                    ]);
+
+                    //Customer Pick Up
+                    $db->execute("INSERT INTO customer_pickups (pickup_record_id, customer_id) VALUES(:pickup_record_id, :customer_id)", [
+                        'pickup_record_id' => $db->lastInsertId(),
+                        'customer_id' => $customer_id,
+                    ]);
+                    header("Location: job/pickup_officer_assign.php");
+                } else {
+                    $error_message = "Unable to create region, contact support";
+                    header("Location: ../customer_pickup.php?error=" . $error_message);
+                }
             }
         } elseif ($action == "update") {
             $id =  trim(htmlspecialchars($_POST['id'], ENT_QUOTES, "UTF-8"));

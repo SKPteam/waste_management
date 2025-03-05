@@ -35,8 +35,15 @@ if (!empty($query)) {
                     'officer_id' => $region_officer['officer_id'],
                     'id' => $pickup['id']
                 ]);
+                $success_message = "New Pickup created";
+                header("Location: ../../customer_pickup.php?success=" . $success_message);
             }
+            $error_message = "Officer not found in your region, contact support";
+            header("Location: ../../customer_pickup.php?error=" . $error_message);
         }
+        $error_message = "Customer not found on the system, contact support";
+        header("Location: ../../customer_pickup.php?error=" . $error_message);
     }
 }
-echo "No pickup for now";
+$error_message = "Unable to assign officer, contact support";
+header("Location: ../../customer_pickup.php?error=" . $error_message);

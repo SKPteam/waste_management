@@ -154,4 +154,3 @@ $query = $db->fetchAll(
             </div>
         </div>
     </div>
-</div>

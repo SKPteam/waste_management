@@ -39,7 +39,9 @@ if (isset($_GET['success'])) {
                 <div class="page-header">
                     <h3 class="page-title">
 
+                        <!-- <h4 class="card-title">Schedule Pickup</h4> -->
                         <a href="customer_pickup.php?action=create" class="btn btn-info mr-2">Create Pickup</a>
+
                     </h3>
                 </div>
                 <div class="card">
@@ -49,25 +51,26 @@ if (isset($_GET['success'])) {
                                                     : (isset($_GET['action']) && $_GET['action'] == "update" ? "Update Pickup" : "My Pickups")
                                                 ?></h4>
                         <div class="row">
+                            <?php
+                            if (isset($error_message)) { ?>
+                                <div class="alert alert-fill-danger" role="alert">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    <?= $error_message ?>
+                                </div>
+                            <?php } elseif (isset($success_message)) { ?>
+
+                                <div class="alert alert-fill-success" role="alert">
+                                    <i class="fa fa-check-circle"></i>
+                                    <?= $success_message ?>
+                                </div>
+                            <?php } else { ?>
+                                <h4 class="card-title">Schedule Pickup</h4>
+                            <?php } ?>
+
                             <?php if (isset($_GET['action']) && $_GET['action'] == "create") { ?>
                                 <div class="col-md-6 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
-                                            <?php
-                                            if (isset($error_message)) { ?>
-                                                <div class="alert alert-fill-danger" role="alert">
-                                                    <i class="fa fa-exclamation-triangle"></i>
-                                                    <?= $error_message ?>
-                                                </div>
-                                            <?php } elseif (isset($success_message)) { ?>
-
-                                                <div class="alert alert-fill-success" role="alert">
-                                                    <i class="fa fa-check-circle"></i>
-                                                    <?= $success_message ?>
-                                                </div>
-                                            <?php } else { ?>
-                                                <h4 class="card-title">Schedule Pickup</h4>
-                                            <?php } ?>
 
                                             <form class="forms-sample" action="backend/customer_pickup.php" method="post">
 

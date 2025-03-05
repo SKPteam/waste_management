@@ -160,4 +160,3 @@ $query = $db->fetchAll($sql);
             </div>
         </div>
     </div>
-</div>

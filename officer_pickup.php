@@ -81,8 +81,8 @@ if (isset($_GET['success'])) {
                                                         <option value="0">0</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
-                                                        <option value="4">5</option>
-                                                        <option value="5">4</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -94,12 +94,13 @@ if (isset($_GET['success'])) {
                                                     <select name="status" class="form-control form-control-lg" required>
                                                         <option value="pending">Pending</option>
                                                         <option value="completed">Completed</option>
-                                                        <option value="missed">Missed</option>
+                                                        <!-- <option value="missed">Missed</option> -->
                                                     </select>
                                                 </div>
 
                                                 <input type="hidden" name="action" value="update">
                                                 <input type="hidden" name="id" value="<?= $id ?? '' ?>">
+                                                <input type="hidden" name="customer_id" value="<?= $query['customer_id'] ?? '' ?>">
 
                                                 <button type="submit" class="btn btn-primary mr-2" name="submit">Update</button>
                                             </form>
