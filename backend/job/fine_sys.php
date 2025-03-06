@@ -30,20 +30,24 @@ if (isset($_GET['customer_id']) && !empty($_GET['customer_id'])) {
                     'fine_reason' => 'You have score for 3 consecutively within a month'
                 ]);
 
-                $success_message = "Pickup Updated info updated";
-                header("Location: ../officer_pickup.php?success=" . $success_message);
+                // $success_message = "Pickup Updated info updated";
+                // header("Location: ../../officer_pickup.php?success=" . $success_message);
+                header("Location: payout_sys.php?customer_id=" . $customer_id);
             } else {
 
-                $success_message = "Pickup Updated info updated";
-                header("Location: ../officer_pickup.php?success=" . $success_message);
+                // $success_message = "Pickup Updated info updated";
+                // header("Location: ../../officer_pickup.php?success=" . $success_message);
+                header("Location: payout_sys.php?customer_id=" . $customer_id);
             }
         } else {
 
-            $success_message = "Pickup Updated info updated";
-            header("Location: ../../officer_pickup.php?success=" . $success_message);
+            // $success_message = "Pickup Updated info updated";
+            // header("Location: ../../officer_pickup.php?success=" . $success_message);
+            header("Location: payout_sys.php?customer_id=" . $customer_id);
         }
     } else {
-        $success_message = "Pickup Updated info updated";
-        header("Location: ../officer_pickup.php?success=" . $success_message);
+        // $success_message = "Pickup Updated info updated";
+        // header("Location: ../../officer_pickup.php?success=" . $success_message);
+        header("Location: payout_sys.php?customer_id=" . $customer_id);
     }
 }

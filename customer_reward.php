@@ -34,7 +34,8 @@ if (!$db->CheckLogin()) {
                                 <?php
                                 $id = $_SESSION['id'];
                                 $sql = "SELECT * FROM rewards
-                                WHERE customer_id =:customer_id ORDER BY created_at ASC";
+                                WHERE customer_id =:customer_id 
+                                ORDER BY created_at DESC";
                                 $query = $db->fetchAll($sql, [
                                     'customer_id' => $id
                                 ]);
@@ -73,7 +74,7 @@ if (!$db->CheckLogin()) {
                                                                 <span style="font-size:120%;color:blue;">★</span>
                                                                 <span style="font-size:120%;color:blue;">★</span>
                                                                 <span style="font-size:120%;color:blue;">★</span>
-                                                            <?php } elseif ($result['status'] == 4) { ?>
+                                                            <?php } elseif ($result['total_points'] == 4) { ?>
                                                                 <span style="font-size:120%;color:red;">☆</span>
                                                                 <span style="font-size:120%;color:blue;">★</span>
                                                                 <span style="font-size:120%;color:blue;">★</span>
@@ -91,9 +92,7 @@ if (!$db->CheckLogin()) {
                                                                 <span style="font-size:120%;color:black;">☆</span>
                                                             <?php } ?>
 
-                                                            <span style="font-size:120%;color:yellow;">★</span>
-                                                            <span style="font-size:120%;color:red;">☆</span>
-                                                            <span style="font-size:120%;color:blue;">★</span>
+
                                                         </td>
                                                         <td>
                                                             <?= $result['amount'] ?>

@@ -124,13 +124,13 @@ if (isset($_GET['success'])) {
                                         <div class="card-body">
                                             <?php
                                             if (isset($error_message)) { ?>
-                                                <div class="alert alert-fill-danger" role="alert">
+                                                <div class="alert alert-fill-danger" role="alert" id="message">
                                                     <i class="fa fa-exclamation-triangle"></i>
                                                     <?= $error_message ?>
                                                 </div>
                                             <?php } elseif (isset($success_message)) { ?>
 
-                                                <div class="alert alert-fill-success" role="alert">
+                                                <div class="alert alert-fill-success" role="alert" id="message">
                                                     <i class="fa fa-check-circle"></i>
                                                     <?= $success_message ?>
                                                 </div>
@@ -166,7 +166,7 @@ if (isset($_GET['success'])) {
                                 $sql = "SELECT bin_categories.category_name,officers.name, pickup_records.* FROM pickup_records
                                 JOIN bin_categories on pickup_records.bin_category_id = bin_categories.id
                                 JOIN officers on pickup_records.officer_id = officers.id
-                                WHERE customer_id =:customer_id ORDER BY created_at ASC";
+                                WHERE customer_id =:customer_id ORDER BY created_at DESC";
                                 $query = $db->fetchAll($sql, [
                                     'customer_id' => $id
                                 ]);
@@ -210,7 +210,35 @@ if (isset($_GET['success'])) {
                                                             <?= $result['pickup_day'] ?>
                                                         </td>
                                                         <td>
-                                                            <?= $result['neatness_score'] ?>
+                                                            <!-- <?= $result['neatness_score'] ?> -->
+                                                            <?php
+                                                            if ($result['status'] == 'pending') {
+                                                                echo "No rating yet";
+                                                            } else {
+                                                                if ($result['neatness_score'] == 5) { ?>
+                                                                    <span style="font-size:120%;color:yellow;">★</span>
+                                                                    <span style="font-size:120%;color:red;">☆</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                <?php } elseif ($result['neatness_score'] == 4) { ?>
+                                                                    <span style="font-size:120%;color:red;">☆</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                <?php } elseif ($result['neatness_score'] == 3) { ?>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                <?php } elseif ($result['neatness_score'] == 2) { ?>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                <?php } elseif ($result['neatness_score'] == 1) { ?>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                <?php } else { ?>
+                                                                    <span style="font-size:120%;color:black;">☆</span>
+                                                                <?php } ?>
+                                                            <?php } ?>
                                                         </td>
                                                         <td>
                                                             <?= $result['comment'] == "" ? "No comment" : $result['comment'] ?>
@@ -254,4 +282,9 @@ if (isset($_GET['success'])) {
             <!-- content-wrapper ends -->
             <!-- partial:../../partials/_footer.html -->
             <?php require_once(ROOT_PATH . 'includes/footer.php') ?>;
-            <script src="assets/js/data-table.js"></script>
+            <script src="assets/js/data-table.js">
+                setTimeout(() => {
+                    let get = document.getElementById('message');
+                    get.style.visibility = 'hidden';
+                }, 0);
+            </script>

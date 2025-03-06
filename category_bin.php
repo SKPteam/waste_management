@@ -113,7 +113,7 @@ if (isset($_GET['success'])) {
 
                 </div>
                 <?php
-                $sql = "SELECT * FROM bin_categories";
+                $sql = "SELECT * FROM bin_categories DESC";
                 $query = $db->fetchAll($sql);
                 if (empty($query)) { ?>
                     <div class="alert alert-fill-danger" role="alert">

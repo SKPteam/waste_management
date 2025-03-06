@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
             $db->execute("INSERT INTO rewards (customer_id, total_points, amount, month_year) VALUES (:customer_id,:total_points,:amount,:month_year)", [
                 'customer_id' => $customer_id,
                 'total_points' => $neatness_score,
-                'amount' => 0.50,
+                'amount' => $neatness_score * 0.50,
                 'month_year' => date('Y-m'),
             ]);
             header("Location: job/fine_sys.php?customer_id=" . $customer_id);

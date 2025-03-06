@@ -113,7 +113,7 @@ if (isset($_GET['success'])) {
                                 $sql = "SELECT bin_categories.category_name,customers.name, pickup_records.* FROM pickup_records
                                 JOIN bin_categories on pickup_records.bin_category_id = bin_categories.id
                                 JOIN customers on pickup_records.customer_id = customers.id
-                                ORDER BY created_at ASC";
+                                ORDER BY created_at DESC";
                                 $query = $db->fetchAll($sql);
                                 if (empty($query)) { ?>
                                     <div class="alert alert-fill-danger" role="alert">

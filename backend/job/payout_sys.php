@@ -6,19 +6,44 @@ $db = new Database();
 if (isset($_GET['customer_id']) && !empty($_GET['customer_id'])) {
     //Select all customer pick in the current month
     $customer_id = $_GET['customer_id'];
-    $sql = "SELECT * FROM pickup_records
-    WHERE customer_id =:customer_id AND neatness_score = 0 AND status = 'completed' AND MONTH(created_at) = MONTH(CURRENT_DATE()) 
-        AND YEAR(created_at) = YEAR(CURRENT_DATE())";
-    $query = $db->fetchAll($sql, [
+    $sql = "SELECT * FROM rewards
+    WHERE customer_id =:customer_id AND status = 'pending' AND MONTH(created_at) = MONTH(CURRENT_DATE()) 
+        AND YEAR(created_at) = YEAR(CURRENT_DATE()) LIMIT 4";
+    $rewards = $db->fetchAll($sql, [
         'customer_id' => $customer_id
     ]);
 
-    if (!empty($query)) {
-        if (count($query) >= 3) {
-            # code...
+    if (!empty($rewards)) {
+        $total_bonus = 0;
+        foreach ($rewards as $reward) {
+            $total_bonus += $reward['amount'];
         }
-        var_dump($query);
+        if ($total_bonus == 10) {
+            //Create a Payout 
+            //allocate Reward for customer
+            $db->execute("INSERT INTO payouts (customer_id, total_amount, transaction_month) VALUES (:customer_id, :total_amount, :transaction_month)", [
+                'customer_id' => $customer_id,
+                'total_amount' => $total_bonus,
+                'transaction_month' => date('M'),
+            ]);
+            //update reward table for customer rewards
+            foreach ($rewards as $reward) {
+                $db->execute("UPDATE rewards SET status=:status WHERE id = :id", [
+                    "status" => "released",
+                    'id' => $reward['id']
+                ]);
+            }
+            $success_message = "Pickup Updated info updated";
+            header("Location: ../../officer_pickup.php?success=" . $success_message);
+        } else {
+            $success_message = "Pickup Updated info updated";
+            header("Location: ../../officer_pickup.php?success=" . $success_message);
+        }
     } else {
-        var_dump($query);
+        $success_message = "Pickup Updated info updated";
+        header("Location: ../../officer_pickup.php?success=" . $success_message);
     }
+} else {
+    $success_message = "Pickup Updated info updated";
+    header("Location: ../../officer_pickup.php?success=" . $success_message);
 }

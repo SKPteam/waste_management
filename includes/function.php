@@ -60,6 +60,7 @@ class Database
             $this->createBinCategoryPickUpsTable();
             $this->createStateStateTable();
             $this->createAdminsTable();
+            $this->createPayOutsTable();
         } catch (PDOException $e) {
             die("Database Connection Failed: " . $e->getMessage());
         }
@@ -343,6 +344,25 @@ class Database
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (bin_category_id) REFERENCES bin_categories(id) ON DELETE CASCADE,
                 FOREIGN KEY (pickup_record_id) REFERENCES pickup_records(id) ON DELETE CASCADE
+            )";
+        $this->pdo->exec($sql);
+    }
+
+
+    /**
+     * createBinCategoryPickUpsTable
+     *
+     * @return void
+     */
+    private function createPayOutsTable()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS payouts (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                customer_id INT NOT NULL,
+                total_amount DECIMAL(20,2) NOT NULL,
+                transaction_month VARCHAR(255) NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
             )";
         $this->pdo->exec($sql);
     }

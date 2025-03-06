@@ -48,7 +48,7 @@ if (isset($_GET['success'])) {
                                 customers.created_at as created_at,
                                 customers.status as status,
                                 regions.region_name FROM customers 
-                                JOIN regions ON customers.region_id = regions.id ORDER BY created_at ASC";
+                                JOIN regions ON customers.region_id = regions.id ORDER BY created_at DESC";
                                 $query = $db->fetchAll($sql);
                                 if (empty($query)) { ?>
                                     <div class="alert alert-fill-danger" role="alert">

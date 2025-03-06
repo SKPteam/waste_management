@@ -33,11 +33,10 @@ if (!$db->CheckLogin()) {
                             <div class="col-12">
                                 <?php
                                 $id = $_SESSION['id'];
-                                $sql = "SELECT * FROM fines
-                                WHERE customer_id =:customer_id ORDER BY created_at DESC";
-                                $query = $db->fetchAll($sql, [
-                                    'customer_id' => $id
-                                ]);
+                                $sql = "SELECT customers.name, rewards.* FROM rewards
+                                JOIN customers on rewards.customer_id = customer_id
+                                 ORDER BY created_at DESC";
+                                $query = $db->fetchAll($sql);
                                 if (empty($query)) { ?>
                                     <div class="alert alert-fill-danger" role="alert">
                                         <i class="fa fa-exclamation-triangle"></i>
@@ -49,8 +48,9 @@ if (!$db->CheckLogin()) {
                                             <thead>
                                                 <tr>
                                                     <th>S/N </th>
-                                                    <th>Date of Fine</th>
-                                                    <th>Reason</th>
+                                                    <th>Customer</th>
+                                                    <th>Neatness Score</th>
+                                                    <th>Amount</th>
                                                     <th>Created At</th>
                                                     <th>Status</th>
                                                 </tr>
@@ -65,10 +65,39 @@ if (!$db->CheckLogin()) {
                                                             <?= $i++ ?>
                                                         </td>
                                                         <td>
-                                                            <?= date('Y-m-d', strtotime($result['date_of_fine'])) ?>
+                                                            <?= $result['name'] ?>
                                                         </td>
                                                         <td>
-                                                            <?= $result['fine_reason'] ?>
+
+                                                            <?php
+                                                            if ($result['total_points'] == 5) { ?>
+                                                                <span style="font-size:120%;color:yellow;">★</span>
+                                                                <span style="font-size:120%;color:red;">☆</span>
+                                                                <span style="font-size:120%;color:blue;">★</span>
+                                                                <span style="font-size:120%;color:blue;">★</span>
+                                                                <span style="font-size:120%;color:blue;">★</span>
+                                                            <?php } elseif ($result['total_points'] == 4) { ?>
+                                                                <span style="font-size:120%;color:red;">☆</span>
+                                                                <span style="font-size:120%;color:blue;">★</span>
+                                                                <span style="font-size:120%;color:blue;">★</span>
+                                                                <span style="font-size:120%;color:blue;">★</span>
+                                                            <?php } elseif ($result['total_points'] == 3) { ?>
+                                                                <span style="font-size:120%;color:blue;">★</span>
+                                                                <span style="font-size:120%;color:blue;">★</span>
+                                                                <span style="font-size:120%;color:blue;">★</span>
+                                                            <?php } elseif ($result['total_points'] == 2) { ?>
+                                                                <span style="font-size:120%;color:blue;">★</span>
+                                                                <span style="font-size:120%;color:blue;">★</span>
+                                                            <?php } elseif ($result['total_points'] == 1) { ?>
+                                                                <span style="font-size:120%;color:blue;">★</span>
+                                                            <?php } else { ?>
+                                                                <span style="font-size:120%;color:black;">☆</span>
+                                                            <?php } ?>
+
+
+                                                        </td>
+                                                        <td>
+                                                            <?= $result['amount'] ?>
                                                         </td>
                                                         <td>
                                                             <?= date('Y-m-d', strtotime($result['created_at'])) ?>
@@ -76,10 +105,10 @@ if (!$db->CheckLogin()) {
 
                                                         <td>
                                                             <?php
-                                                            if ($result['status'] == 'unpaid') { ?>
-                                                                <button class="badge badge-dark">Unresolved</button>
-                                                            <?php } elseif ($result['status'] == 'paid') { ?>
-                                                                <button class="badge badge-success">Resolved</button>
+                                                            if ($result['status'] == 'pending') { ?>
+                                                                <button class="badge badge-dark">Pending</button>
+                                                            <?php } elseif ($result['status'] == 'released') { ?>
+                                                                <button class="badge badge-success">Released</button>
                                                             <?php } else { ?>
                                                                 <button class="badge badge-dark">Not Define</button>
                                                             <?php } ?>

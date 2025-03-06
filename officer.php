@@ -4,7 +4,7 @@ require_once('includes/config/path.php');
 require_once(ROOT_PATH . 'includes/header.php');
 require_once(ROOT_PATH . 'includes/function.php');
 $db = new Database();
-$sql = "SELECT * FROM regions";
+$sql = "SELECT * FROM regions ORDER BY created_at DESC";
 $result = $db->fetchAll($sql);
 if (!$db->CheckLogin()) {
     header("Location: index.php");

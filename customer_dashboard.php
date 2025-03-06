@@ -7,10 +7,40 @@ $id = $_SESSION['id'];
 $sql = "SELECT bin_categories.category_name,officers.name, pickup_records.* FROM pickup_records
                                 JOIN bin_categories on pickup_records.bin_category_id = bin_categories.id
                                 JOIN officers on pickup_records.officer_id = officers.id
-                                WHERE customer_id =:customer_id ORDER BY created_at ASC LIMIT 5";
+                                WHERE customer_id =:customer_id ORDER BY created_at DESC LIMIT 5";
 $query = $db->fetchAll($sql, [
     'customer_id' => $id
 ]);
+
+$sql1 = "SELECT * FROM pickup_records WHERE customer_id =:customer_id ";
+$pickups = $db->fetchAll($sql1, [
+    'customer_id' => $id
+]);
+
+$sql2 = "SELECT * FROM fines WHERE customer_id =:customer_id AND status ='unpaid' AND MONTH(created_at) = MONTH(CURRENT_DATE()) 
+        AND YEAR(created_at) = YEAR(CURRENT_DATE())";
+$fines = $db->fetchAll($sql2, [
+    'customer_id' => $id,
+]);
+
+$sql3 = "SELECT * FROM rewards WHERE customer_id = :customer_id AND MONTH(created_at) = MONTH(CURRENT_DATE()) 
+        AND YEAR(created_at) = YEAR(CURRENT_DATE())";
+$rewards = $db->fetchAll($sql3, [
+    'customer_id' => $id,
+]);
+$total_rewards = 0;
+foreach ($rewards as $reward) {
+    $total_rewards += $reward['amount'];
+}
+
+$sql4 = "SELECT * FROM payouts WHERE customer_id = :customer_id";
+$payouts = $db->fetchAll($sql4, [
+    'customer_id' => $id,
+]);
+$total_payouts = 0;
+foreach ($payouts as $payout) {
+    $total_payouts += $payout['total_amount'];
+}
 ?>
 
 <div class="row grid-margin">
@@ -23,28 +53,29 @@ $query = $db->fetchAll($sql, [
                             <i class="icon-sm fa fa-user mr-2"></i>
                             Total Pickup
                         </p>
-                        <h2>0</h2>
+                        <h2><?= count($pickups) ?></h2>
                     </div>
                     <div class="statistics-item">
                         <p>
                             <i class="icon-sm fas fa-hourglass-half mr-2"></i>
                             Fines
                         </p>
-                        <h2>0.00</h2>
+                        <h2><?= count($fines) ?></h2>
                     </div>
                     <div class="statistics-item">
                         <p>
                             <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
-                            Reward
+                            Monthly Reward
                         </p>
-                        <h2>0.00</h2>
+                        <h2>$<?= $total_rewards ?></h2>
+
                     </div>
                     <div class="statistics-item">
                         <p>
                             <i class="icon-sm fas fa-check-circle mr-2"></i>
-                            Payout Balance
+                            Last Payout
                         </p>
-                        <h2>0.00</h2>
+                        <h2>$<?= number_format($total_payouts, 2) ?></h2>
                     </div>
                 </div>
             </div>
@@ -102,13 +133,41 @@ $query = $db->fetchAll($sql, [
                                             <?= $result['pickup_day'] ?>
                                         </td>
                                         <td>
-                                            <?= $result['neatness_score'] ?>
+                                            <!-- <?= $result['neatness_score'] ?> -->
+                                            <?php
+                                            if ($result['status'] == 'pending') {
+                                                echo "No rating yet";
+                                            } else {
+                                                if ($result['neatness_score'] == 5) { ?>
+                                                    <span style="font-size:120%;color:yellow;">★</span>
+                                                    <span style="font-size:120%;color:red;">☆</span>
+                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                <?php } elseif ($result['neatness_score'] == 4) { ?>
+                                                    <span style="font-size:120%;color:red;">☆</span>
+                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                <?php } elseif ($result['neatness_score'] == 3) { ?>
+                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                <?php } elseif ($result['neatness_score'] == 2) { ?>
+                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                <?php } elseif ($result['neatness_score'] == 1) { ?>
+                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                <?php } else { ?>
+                                                    <span style="font-size:120%;color:black;">☆</span>
+                                                <?php } ?>
+                                            <?php } ?>
                                         </td>
                                         <td>
                                             <?= $result['comment'] == '' ? 'No comment' : $result['comment'] ?>
                                         </td>
                                         <td>
-                                            <?= $result['created_at'] ?>
+                                            <?= date('Y-m-d', strtotime($result['created_at'])) ?>
                                         </td>
                                         <td>
                                             <?php

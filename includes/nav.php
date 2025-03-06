@@ -53,7 +53,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="pages/documentation.html">
+                <a class="nav-link" href="admin_reward.php">
                     <i class="far fa-file-alt menu-icon"></i>
                     <span class="menu-title">Rewards</span>
                 </a>
@@ -81,12 +81,12 @@
             </li>
         <?php } elseif ($role == "officer") { ?>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="officer_customer.php">
                     <i class="fa fa-puzzle-piece menu-icon"></i>
                     <span class="menu-title">Customer</span>
                 </a>
-            </li>
+            </li> -->
 
             <li class="nav-item">
                 <a class="nav-link" href="officer_pickup.php">
@@ -94,37 +94,32 @@
                     <span class="menu-title">Pickups</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="officer_reward.php">
-                    <i class="fa fa-puzzle-piece menu-icon"></i>
-                    <span class="menu-title">Rewards</span>
-                </a>
-            </li>
+
 
         <?php } else { ?>
 
             <li class="nav-item">
                 <a class="nav-link" href="customer_pickup.php">
-                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <i class="fa fa-truck menu-icon"></i>
                     <span class="menu-title">Pickups</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="customer_reward.php">
-                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <i class="fa fa-credit-card menu-icon"></i>
                     <span class="menu-title">Rewards</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="customer_fine.php">
-                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <i class="fa fa-bullhorn menu-icon"></i>
                     <span class="menu-title">Fines</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="pages/documentation.html">
-                    <i class="far fa-file-alt menu-icon"></i>
+                <a class="nav-link" href="customer_payout.php">
+                    <i class="far fa-file-pdf menu-icon"></i>
                     <span class="menu-title">Payouts</span>
                 </a>
             </li>

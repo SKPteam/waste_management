@@ -114,7 +114,7 @@ if (isset($_GET['success'])) {
                                 $sql = "SELECT bin_categories.category_name,customers.name, pickup_records.* FROM pickup_records
                                 JOIN bin_categories on pickup_records.bin_category_id = bin_categories.id
                                 JOIN customers on pickup_records.customer_id = customers.id
-                                WHERE officer_id =:officer_id ORDER BY created_at ASC";
+                                WHERE officer_id =:officer_id ORDER BY created_at DESC";
                                 $query = $db->fetchAll($sql, [
                                     'officer_id' => $id
                                 ]);
@@ -158,7 +158,34 @@ if (isset($_GET['success'])) {
                                                             <?= $result['pickup_day'] ?>
                                                         </td>
                                                         <td>
-                                                            <?= $result['neatness_score'] ?>
+                                                            <?php
+                                                            if ($result['status'] == 'pending') {
+                                                                echo "No rating yet";
+                                                            } else {
+                                                                if ($result['neatness_score'] == 5) { ?>
+                                                                    <span style="font-size:120%;color:yellow;">★</span>
+                                                                    <span style="font-size:120%;color:red;">☆</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                <?php } elseif ($result['neatness_score'] == 4) { ?>
+                                                                    <span style="font-size:120%;color:red;">☆</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                <?php } elseif ($result['neatness_score'] == 3) { ?>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                <?php } elseif ($result['neatness_score'] == 2) { ?>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                <?php } elseif ($result['neatness_score'] == 1) { ?>
+                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                <?php } else { ?>
+                                                                    <span style="font-size:120%;color:black;">☆</span>
+                                                                <?php } ?>
+                                                            <?php } ?>
                                                         </td>
                                                         <td>
                                                             <?= $result['comment'] == "" ? "No comment" : $result['comment'] ?>

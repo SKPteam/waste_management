@@ -4,23 +4,10 @@ require_once('includes/config/path.php');
 require_once(ROOT_PATH . 'includes/header.php');
 require_once(ROOT_PATH . 'includes/function.php');
 $db = new Database();
-
-$officer_id = $_SESSION['id'];
-$sql = "SELECT * FROM officers WHERE id=:id";
-$officer = $db->fetch($sql, [
-    'id' => $officer_id
-]);
-$region_id = $officer['region_id'];
+$user_id = $_SESSION['id'];
 
 if (!$db->CheckLogin()) {
     header("Location: index.php");
-}
-if (isset($_GET['error'])) {
-    $error_message = $_GET['error'];
-}
-
-if (isset($_GET['success'])) {
-    $success_message = $_GET['success'];
 }
 ?>
 
@@ -34,22 +21,22 @@ if (isset($_GET['success'])) {
             <div class="content-wrapper">
                 <div class="page-header">
                     <h3 class="page-title">
+
+                        <!-- <a href="customer_pickup.php?action=create" class="btn btn-info mr-2">Create Pickup</a> -->
                     </h3>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title"><?= (isset($_GET['action']) && $_GET['action'] == "update" ? "Update Pickup" : "My Pickups")
-                                                ?></h4>
+                        <h4 class="card-title">Payouts</h4>
                         <div class="row">
-
 
                             <div class="col-12">
                                 <?php
-                                $sql = "SELECT * FROM region_customers 
-                                -- JOIN region_customers on officers.region_id = region_customers.region_id
-                                WHERE region_id =:region_id ORDER BY created_at DESC";
+                                $id = $_SESSION['id'];
+                                $sql = "SELECT * FROM payouts
+                                WHERE customer_id =:customer_id ORDER BY created_at DESC";
                                 $query = $db->fetchAll($sql, [
-                                    'region_id' => $region_id
+                                    'customer_id' => $id
                                 ]);
                                 if (empty($query)) { ?>
                                     <div class="alert alert-fill-danger" role="alert">
@@ -62,11 +49,8 @@ if (isset($_GET['success'])) {
                                             <thead>
                                                 <tr>
                                                     <th>S/N </th>
-                                                    <th>Customer</th>
-                                                    <th>Category Bin</th>
-                                                    <th>Pickup Day</th>
-                                                    <th>Neatness Score</th>
-                                                    <th>Comment</th>
+                                                    <th>Amount</th>
+                                                    <th>Payment Month</th>
                                                     <th>Created At</th>
                                                     <th>Status</th>
                                                 </tr>
@@ -74,8 +58,6 @@ if (isset($_GET['success'])) {
                                             <tbody>
 
                                                 <?php
-                                                var_dump($query);
-                                                exit;
                                                 $i = 1;
                                                 foreach ($query as $result) { ?>
                                                     <tr>
@@ -83,31 +65,17 @@ if (isset($_GET['success'])) {
                                                             <?= $i++ ?>
                                                         </td>
                                                         <td>
-                                                            <?= $result['officer_id'] ?? '' ?>
+                                                            $<?= number_format($result['total_amount'], 2) ?>
                                                         </td>
                                                         <td>
-                                                            <?= $result['customer_id'] ?? '' ?>
+                                                            <?= $result['transaction_month'] ?>
                                                         </td>
                                                         <td>
-                                                            <?= $result['preferred_pickup_day'] ?? '' ?>
+                                                            <?= date('Y-m-d', strtotime($result['created_at'])) ?>
                                                         </td>
-                                                        <td>
-                                                            <?= $result['phone_number'] ?? '' ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $result['address'] ?? '' ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= date('d-m-Y', strtotime($result['created_at'])) ?>
-                                                        </td>
-                                                        <td>
-                                                            <!-- <?php
-                                                                    if ($result['status'] == 1) { ?>
-                                                                <button class="badge badge-success"><?= ucfirst($result['status']) ?></button>
-                                                            <?php } else { ?>
-                                                                <button class="badge badge-danger">Disabled</button>
-                                                            <?php } ?> -->
 
+                                                        <td>
+                                                            <button class="badge badge-success">Paid</button>
                                                         </td>
 
                                                     </tr>

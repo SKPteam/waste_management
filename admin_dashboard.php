@@ -7,7 +7,7 @@ $sql = "SELECT bin_categories.category_name,officers.name,customers.name as cust
                                 JOIN bin_categories on pickup_records.bin_category_id = bin_categories.id
                                 JOIN officers on pickup_records.officer_id = officers.id
                                 JOIN customers on pickup_records.customer_id = customers.id
-                                ORDER BY created_at ASC LIMIT 5";
+                                ORDER BY created_at DESC LIMIT 5";
 
 $query = $db->fetchAll($sql);
 ?>
