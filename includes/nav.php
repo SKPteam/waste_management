@@ -35,47 +35,47 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="customer.php">
-                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <i class="fa fa-users menu-icon"></i>
                     <span class="menu-title">Customer</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="category_bin.php">
-                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <i class="fa fa-suitcase menu-icon"></i>
                     <span class="menu-title">Category Bins</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="officer.php">
-                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <i class="fa fa-user-circle menu-icon"></i>
                     <span class="menu-title">Officers</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="admin_reward.php">
-                    <i class="far fa-file-alt menu-icon"></i>
+                    <i class="far fa-credit-card menu-icon"></i>
                     <span class="menu-title">Rewards</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="admin_pickup.php">
-                    <i class="far fa-file-alt menu-icon"></i>
+                    <i class="fa fa-truck menu-icon"></i>
                     <span class="menu-title">Pickups</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="admin_fine.php">
-                    <i class="far fa-file-alt menu-icon"></i>
+                    <i class="fa fa-bullhorn menu-icon"></i>
                     <span class="menu-title">Fines</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="admin_payout.php">
-                    <i class="far fa-file-alt menu-icon"></i>
+                    <i class="fa fa-file-pdf menu-icon"></i>
                     <span class="menu-title">Payouts</span>
                 </a>
             </li>
@@ -90,7 +90,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="officer_pickup.php">
-                    <i class="fa fa-puzzle-piece menu-icon"></i>
+                    <i class="fa fa-truck menu-icon"></i>
                     <span class="menu-title">Pickups</span>
                 </a>
             </li>
