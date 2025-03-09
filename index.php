@@ -2,15 +2,15 @@
 require_once('includes/config/path.php');
 require_once(ROOT_PATH . 'includes/header.php');
 require_once(ROOT_PATH . 'includes/function.php');
-$admin = new Database();
+$db = new Database();
 
 //check if admin has an account
 $sql = "SELECT * FROM admins";
-$query = $admin->fetchAll($sql);
+$query = $db->fetchAll($sql);
 if (empty($query)) {
     $password = md5('0987654321');
     $sql2 = "INSERT INTO admins (email, password,created_at) VALUES('akinyemi4taiwo@gmail.com','$password', now())";
-    $this->pdo->exec($sql2);
+    $db->execute($sql2);
 }
 
 

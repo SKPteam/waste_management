@@ -113,7 +113,7 @@ if (isset($_GET['success'])) {
 
                 </div>
                 <?php
-                $sql = "SELECT * FROM regions";
+                $sql = "SELECT * FROM regions ORDER BY created_at DESC";
                 $query = $db->fetchAll($sql);
                 if (empty($query)) { ?>
                     <div class="alert alert-fill-danger" role="alert">

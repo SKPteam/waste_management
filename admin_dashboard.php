@@ -10,6 +10,35 @@ $sql = "SELECT bin_categories.category_name,officers.name,customers.name as cust
                                 ORDER BY created_at DESC LIMIT 5";
 
 $query = $db->fetchAll($sql);
+
+$sql1 = "SELECT * FROM pickup_records";
+$pickups = $db->fetchAll($sql1);
+
+$sql2 = "SELECT * FROM fines WHERE status ='unpaid' ";
+$fines = $db->fetchAll($sql2);
+
+$sql3 = "SELECT * FROM rewards";
+$rewards = $db->fetchAll($sql3,);
+$total_rewards = 0;
+foreach ($rewards as $reward) {
+    $total_rewards += $reward['amount'];
+}
+
+$sql4 = "SELECT * FROM payouts";
+$payouts = $db->fetchAll($sql4);
+$total_payouts = 0;
+foreach ($payouts as $payout) {
+    $total_payouts += $payout['total_amount'];
+}
+
+$sql5 = "SELECT * FROM customers";
+$customers = $db->fetchAll($sql5);
+
+$sql6 = "SELECT * FROM pickup_records WHERE date(created_at) = CURDATE()";
+$TodayPickups = $db->fetchAll($sql6);
+
+
+
 ?>
 <div class="row grid-margin">
     <div class="col-12">
@@ -19,9 +48,11 @@ $query = $db->fetchAll($sql);
                     <div class="statistics-item">
                         <p>
                             <i class="icon-sm fa fa-user mr-2"></i>
-                            New users
+                            Customers
                         </p>
-                        <h2>0</h2>
+                        <h2>
+                            <?= count($customers) ?>
+                        </h2>
                         <!-- <label class="badge badge-outline-success badge-pill">2.7% increase</label> -->
                     </div>
                     <div class="statistics-item">
@@ -29,7 +60,9 @@ $query = $db->fetchAll($sql);
                             <i class="icon-sm fas fa-hourglass-half mr-2"></i>
                             Total Pickups
                         </p>
-                        <h2>0</h2>
+                        <h2>
+                            <?= count($pickups) ?>
+                        </h2>
                         <!-- <label class="badge badge-outline-danger badge-pill">30% decrease</label> -->
                     </div>
                     <div class="statistics-item">
@@ -37,7 +70,9 @@ $query = $db->fetchAll($sql);
                             <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
                             Today Pickups
                         </p>
-                        <h2>0</h2>
+                        <h2>
+                            <?= count($TodayPickups) ?>
+                        </h2>
                         <!-- <label class="badge badge-outline-success badge-pill">12% increase</label> -->
                     </div>
                     <div class="statistics-item">
@@ -45,7 +80,7 @@ $query = $db->fetchAll($sql);
                             <i class="icon-sm fas fa-check-circle mr-2"></i>
                             Total Fines
                         </p>
-                        <h2>0</h2>
+                        <h2><?= count($fines) ?></h2>
                         <!-- <label class="badge badge-outline-success badge-pill">57% increase</label> -->
                     </div>
                     <div class="statistics-item">
@@ -53,7 +88,7 @@ $query = $db->fetchAll($sql);
                             <i class="icon-sm fas fa-chart-line mr-2"></i>
                             Total Rewards
                         </p>
-                        <h2>0</h2>
+                        <h2><?= number_format($total_rewards, 2) ?></h2>
                         <!-- <label class="badge badge-outline-success badge-pill">10% increase</label> -->
                     </div>
                     <div class="statistics-item">
@@ -61,7 +96,9 @@ $query = $db->fetchAll($sql);
                             <i class="icon-sm fas fa-circle-notch mr-2"></i>
                             Payouts
                         </p>
-                        <h2>0</h2>
+                        <h2>
+                            <?= number_format($total_payouts, 2) ?>
+                        </h2>
                         <!-- <label class="badge badge-outline-danger badge-pill">16% decrease</label> -->
                     </div>
                 </div>

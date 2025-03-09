@@ -27,7 +27,7 @@ if (!$db->CheckLogin()) {
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">FInes</h4>
+                        <h4 class="card-title">Fines</h4>
                         <div class="row">
 
                             <div class="col-12">
