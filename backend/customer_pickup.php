@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
                     ]);
                     header("Location: job/pickup_officer_assign.php");
                 } else {
-                    $error_message = "Unable to create region, contact support";
+                    $error_message = "Unable to create pickup, contact support";
                     header("Location: ../customer_pickup.php?error=" . $error_message);
                 }
             }
@@ -60,7 +60,7 @@ if (isset($_POST['submit'])) {
                 'bin_category_id' => $bin_category_id,
                 'id' => $id
             ]);
-            $success_message = "Region updated";
+            $success_message = "Pickup updated";
             header("Location: ../customer_pickup.php?success=" . $success_message);
         } else {
             header("Location: ../customer_pickup.php?error=" . $error_message);

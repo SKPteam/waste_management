@@ -37,13 +37,16 @@ if (!empty($query)) {
                 ]);
                 $success_message = "New Pickup created";
                 header("Location: ../../customer_pickup.php?success=" . $success_message);
+            } else {
+                $error_message = "Officer not found in your region, contact support";
+                header("Location: ../../customer_pickup.php?error=" . $error_message);
             }
-            $error_message = "Officer not found in your region, contact support";
+        } else {
+            $error_message = "Customer not found on the system, contact support";
             header("Location: ../../customer_pickup.php?error=" . $error_message);
         }
-        $error_message = "Customer not found on the system, contact support";
-        header("Location: ../../customer_pickup.php?error=" . $error_message);
     }
+} else {
+    $error_message = "Unable to assign officer, contact support";
+    header("Location: ../../customer_pickup.php?error=" . $error_message);
 }
-$error_message = "Unable to assign officer, contact support";
-header("Location: ../../customer_pickup.php?error=" . $error_message);
