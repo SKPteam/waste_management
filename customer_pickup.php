@@ -9,6 +9,9 @@ $result = $db->fetchAll($sql, [
     'status' => 1
 ]);
 
+$countries = "SELECT name, id FROM countries";
+$result_countries = $db->fetchAll($countries);
+
 $user_id = $_SESSION['id'];
 $sql = "SELECT customers.*, regions.* FROM region_customers 
 JOIN customers ON region_customers.customer_id = customers.id
@@ -65,9 +68,13 @@ if (isset($_GET['success'])) {
                                 </div>
                             <?php } else { ?>
                                 <h4 class="card-title">Schedule Pickup</h4>
+                                <br>
+
                             <?php } ?>
 
                             <?php if (isset($_GET['action']) && $_GET['action'] == "create") { ?>
+                                <br>
+                                
                                 <div class="col-md-6 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
@@ -101,8 +108,39 @@ if (isset($_GET['success'])) {
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="exampleInputUsername1">Home Address</label>
-                                                    <input type="text" name="address" disabled value="<?= $userRegion['address'] ?>" required class="form-control" id="exampleInputUsername1" placeholder="Region name">
+                                                    <label for="exampleInputUsername1">Apartment No</label>
+                                                    <input type="text" name="apartment_no" value="" required class="form-control" id="exampleInputUsername1" placeholder="Apartment No">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputUsername1">Address</label>
+                                                    <input type="text" name="address" value="" required class="form-control" id="exampleInputUsername1" placeholder="Address name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputUsername1">City</label>
+                                                    <input type="text" name="city" value="" required class="form-control" id="exampleInputUsername1" placeholder="City name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputUsername1">Zip Code</label>
+                                                    <input type="text" name="zip_code" value="" required class="form-control" id="exampleInputUsername1" placeholder="Zip code">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="exampleInputUsername1">Country</label>
+                                                    <select name="country" id="country" class="form-control form-control-lg" required>
+                                                        <option value="" selected disabled>Select Country</option>
+                                                        <?php
+                                                        foreach ($result_countries as $country) { ?>
+                                                            <option value="<?= $country['id'] ?>"><?= $country['name'] ?></option>
+                                                        <?php }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputUsername1">State</label>
+                                                    <select name="state" class="form-control form-control-lg" id="state" required>
+                                                        <option value="" selected >Select State</option>
+                                                    </select>
                                                 </div>
 
                                                 <div class="form-group">
@@ -283,8 +321,43 @@ if (isset($_GET['success'])) {
             <!-- partial:../../partials/_footer.html -->
             <?php require_once(ROOT_PATH . 'includes/footer.php') ?>;
             <script src="assets/js/data-table.js">
-                setTimeout(() => {
-                    let get = document.getElementById('message');
-                    get.style.visibility = 'hidden';
-                }, 0);
+            </script>
+            <script>
+                // function changeCountry(val){
+                //     alert('you select a country '+ val)
+                // }
+                $(function(){
+                    $('#country').on('change', function(){
+                        // alert('hello')
+                        let country = $(this).find(":selected").val();
+                        console.log(country);
+                        if (country == "") {
+                            alert('Please select a country')
+                        }else{
+                            let State = $("#state").html(
+                "<option disabled selected> Select a State </option>"
+            );
+                            $.ajax({
+                                type: "GET",
+                                url: "backend/state.php?country_id="+ country,
+                                dataType : "JSON",
+                                success: function(data){
+                                    console.log(data.data);
+                                    let states = data.data;
+                                    let state = states.map((items) => {
+                                        console.log(items);
+                                        return $("<option></option>")
+                                            .val(items.id)
+                                            .html(items.name);
+                                    });
+                                    State.append(state);
+                                }, 
+                                error: function(err){
+                                    console.log(err.message);
+                                }
+                            });
+                        }
+                        
+                    })
+                })
             </script>

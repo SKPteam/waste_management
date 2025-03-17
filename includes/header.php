@@ -15,4 +15,5 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="http://www.urbanui.com/" />
+    <script src="assets/js/jquery.min.js"></script>
 </head>

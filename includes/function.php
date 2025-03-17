@@ -66,8 +66,6 @@ class Database
         }
     }
 
-
-
     // Create admins table if it doesn't exist    
 
     /**
@@ -102,10 +100,6 @@ class Database
         )";
         $this->pdo->exec($sql);
     }
-
-
-
-
 
     /**
      * createRegionTable
@@ -207,6 +201,11 @@ class Database
                 comment VARCHAR(5000) NULL,
                 status ENUM('pending', 'completed', 'canceled','missed') DEFAULT 'pending',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                apartment_no VARCHAR(5000) NULL,
+                address VARCHAR(5000) NULL,
+                city VARCHAR(5000) NULL,
+                state VARCHAR(5000) NULL,
+                country VARCHAR(5000) NULL,
                 FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE,
                 FOREIGN KEY (officer_id) REFERENCES officers(id) ON DELETE CASCADE,
                 FOREIGN KEY (bin_category_id) REFERENCES bin_categories(id) ON DELETE CASCADE
