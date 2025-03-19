@@ -110,9 +110,11 @@ if (isset($_GET['success'])) {
                             <div class="col-12">
                                 <?php
                                 $id = $_SESSION['id'];
-                                $sql = "SELECT bin_categories.category_name,customers.name, pickup_records.* FROM pickup_records
+                                $sql = "SELECT bin_categories.category_name,customers.name,countries.name as country_name,states.name as state_name, pickup_records.* FROM pickup_records
                                 JOIN bin_categories on pickup_records.bin_category_id = bin_categories.id
                                 JOIN customers on pickup_records.customer_id = customers.id
+                                JOIN countries on pickup_records.country = countries.id
+                                JOIN states on pickup_records.state = states.id
                                 ORDER BY created_at DESC";
                                 $query = $db->fetchAll($sql);
                                 if (empty($query)) { ?>
@@ -131,6 +133,11 @@ if (isset($_GET['success'])) {
                                                     <th>Pickup Day</th>
                                                     <th>Neatness Score</th>
                                                     <th>Comment</th>
+                                                    <th>Apartment</th>
+                                                    <th>Address</th>
+                                                    <th>City</th>
+                                                    <th>State</th>
+                                                    <th>Country</th>
                                                     <th>Created At</th>
                                                     <th>Status</th>
                                                     <th>Actions</th>
@@ -159,6 +166,21 @@ if (isset($_GET['success'])) {
                                                         </td>
                                                         <td>
                                                             <?= $result['comment'] == "" ? "No comment" : $result['comment'] ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $result['apartment_no'] ?>
+                                                        </td> 
+                                                        <td>
+                                                            <?= $result['address'] ?>
+                                                        </td>
+                                                         <td>
+                                                            <?= $result['city'] ?>
+                                                        </td> 
+                                                        <td>
+                                                            <?= $result['state_name'] ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $result['country_name'] ?>
                                                         </td>
                                                         <td>
                                                             <?= date('d-m-Y', strtotime($result['created_at'])) ?>

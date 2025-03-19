@@ -134,6 +134,11 @@ if (isset($_GET['success'])) {
                                                     <th>Pickup Day</th>
                                                     <th>Neatness Score</th>
                                                     <th>Comment</th>
+                                                    <th>Apartment</th>
+                                                    <th>Address</th>
+                                                    <th>City</th>
+                                                    <th>State</th>
+                                                    <th>Country</th>
                                                     <th>Created At</th>
                                                     <th>Status</th>
                                                     <th>Actions</th>
@@ -189,6 +194,21 @@ if (isset($_GET['success'])) {
                                                         </td>
                                                         <td>
                                                             <?= $result['comment'] == "" ? "No comment" : $result['comment'] ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $result['apartment_no'] ?>
+                                                        </td> 
+                                                        <td>
+                                                            <?= $result['address'] ?>
+                                                        </td>
+                                                         <td>
+                                                            <?= $result['city'] ?>
+                                                        </td> 
+                                                        <td>
+                                                            <?= $result['state'] ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $result['country'] ?>
                                                         </td>
                                                         <td>
                                                             <?= date('d-m-Y', strtotime($result['created_at'])) ?>

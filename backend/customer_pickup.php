@@ -9,10 +9,18 @@ if (isset($_POST['submit'])) {
     $region_id =  trim(htmlspecialchars($_POST['region_id'], ENT_QUOTES, "UTF-8"));
     $bin_category_id =  trim(htmlspecialchars($_POST['bin_category_id'], ENT_QUOTES, "UTF-8"));
     $pickup_day =  trim(htmlspecialchars($_POST['pickup_day'], ENT_QUOTES, "UTF-8"));
+    $apartment =  trim(htmlspecialchars($_POST['apartment_no'], ENT_QUOTES, "UTF-8"));
+    $address =  trim(htmlspecialchars($_POST['address'], ENT_QUOTES, "UTF-8"));
+    $city =  trim(htmlspecialchars($_POST['city'], ENT_QUOTES, "UTF-8"));
+    $state =  trim(htmlspecialchars($_POST['state'], ENT_QUOTES, "UTF-8"));
+    $country =  trim(htmlspecialchars($_POST['country'], ENT_QUOTES, "UTF-8"));
+    $zip_code =  trim(htmlspecialchars($_POST['zip_code'], ENT_QUOTES, "UTF-8"));
     $customer_id =  trim(htmlspecialchars($_POST['customer_id'], ENT_QUOTES, "UTF-8"));
     $action =  trim(htmlspecialchars($_POST['action'], ENT_QUOTES, "UTF-8"));
+    // var_dump($apartment, $address,$city,$state,$country,$zip_code);
+    // exit;
 
-    if ($region_id == "" || $bin_category_id == '' || $action == '' || $pickup_day == '') {
+    if ($region_id == "" || $bin_category_id == '' || $action == '' || $pickup_day == '' || $address == '' || $city == '' || $state == '' || $country == '' || $zip_code == '') {
         $error_message = "Required field can not be empty";
         header("Location: ../customer_pickup.php?error=" . $error_message);
     } else {
@@ -24,15 +32,21 @@ if (isset($_POST['submit'])) {
             $query = $db->fetchAll($sql, [
                 'customer_id' => $customer_id
             ]);
-            if (count($query) >= 5) {
-                $error_message = "Sorry, You have reach maximium for this month, Try again next year";
+            if (count($query) >= 20) {
+                $error_message = "Sorry, You have reach maximum for this month, Try again next year";
                 header("Location: ../customer_pickup.php?error=" . $error_message);
             } else {
 
-                $insertData = $db->execute("INSERT INTO pickup_records (customer_id, bin_category_id,pickup_day) VALUES(:customer_id,:bin_category_id,:pickup_day)", [
+                $insertData = $db->execute("INSERT INTO pickup_records (customer_id, bin_category_id,pickup_day, apartment_no,address,city,state,country, zip_code) VALUES(:customer_id,:bin_category_id,:pickup_day,:apartment_no,:address,:city,:state,:country, :zip_code)", [
                     'customer_id' => $customer_id,
                     'bin_category_id' => $bin_category_id,
-                    'pickup_day' => $pickup_day
+                    'pickup_day' => $pickup_day,
+                    'apartment_no'=> $apartment,
+                    'address' => $address,
+                    'city' => $city,
+                    'state' => $state,
+                    'country' => $country,
+                    'zip_code' => $zip_code
                 ]);
                 if ($insertData) {
 

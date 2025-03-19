@@ -131,7 +131,7 @@ if (isset($_GET['success'])) {
                                                         <option value="" selected disabled>Select Country</option>
                                                         <?php
                                                         foreach ($result_countries as $country) { ?>
-                                                            <option value="<?= $country['id'] ?>"><?= $country['name'] ?></option>
+                                                            <option value="<?= $country['id']?>"><?= $country['name'] ?></option>
                                                         <?php }
                                                         ?>
                                                     </select>
@@ -223,6 +223,11 @@ if (isset($_GET['success'])) {
                                                     <th>Category Bin</th>
                                                     <th>Pickup Day</th>
                                                     <th>Neatness Score</th>
+                                                    <th>Apartment</th>
+                                                    <th>Address</th>
+                                                    <th>City</th>
+                                                    <th>State</th>
+                                                    <th>Country</th>
                                                     <th>Comment</th>
                                                     <th>Created At</th>
                                                     <th>Status</th>
@@ -280,6 +285,21 @@ if (isset($_GET['success'])) {
                                                         </td>
                                                         <td>
                                                             <?= $result['comment'] == "" ? "No comment" : $result['comment'] ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $result['apartment_no'] ?>
+                                                        </td> 
+                                                        <td>
+                                                            <?= $result['address'] ?>
+                                                        </td>
+                                                         <td>
+                                                            <?= $result['city'] ?>
+                                                        </td> 
+                                                        <td>
+                                                            <?= $result['state'] ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $result['country'] ?>
                                                         </td>
                                                         <td>
                                                             <?= date('d-m-Y', strtotime($result['created_at'])) ?>
