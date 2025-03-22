@@ -206,6 +206,7 @@ class Database
                 city VARCHAR(5000) NULL,
                 state VARCHAR(5000) NULL,
                 country VARCHAR(5000) NULL,
+                zip_code VARCHAR(5000) NULL,
                 FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE,
                 FOREIGN KEY (officer_id) REFERENCES officers(id) ON DELETE CASCADE,
                 FOREIGN KEY (bin_category_id) REFERENCES bin_categories(id) ON DELETE CASCADE
