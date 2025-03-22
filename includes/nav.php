@@ -81,12 +81,6 @@
             </li>
         <?php } elseif ($role == "officer") { ?>
 
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="officer_customer.php">
-                    <i class="fa fa-puzzle-piece menu-icon"></i>
-                    <span class="menu-title">Customer</span>
-                </a>
-            </li> -->
 
             <li class="nav-item">
                 <a class="nav-link" href="officer_pickup.php">
