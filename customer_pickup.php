@@ -74,7 +74,7 @@ if (isset($_GET['success'])) {
 
                             <?php if (isset($_GET['action']) && $_GET['action'] == "create") { ?>
                                 <br>
-                                
+
                                 <div class="col-md-6 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
@@ -124,14 +124,14 @@ if (isset($_GET['success'])) {
                                                     <label for="exampleInputUsername1">Zip Code</label>
                                                     <input type="text" name="zip_code" value="" required class="form-control" id="exampleInputUsername1" placeholder="Zip code">
                                                 </div>
-                                                
+
                                                 <div class="form-group">
                                                     <label for="exampleInputUsername1">Country</label>
                                                     <select name="country" id="country" class="form-control form-control-lg" required>
                                                         <option value="" selected disabled>Select Country</option>
                                                         <?php
                                                         foreach ($result_countries as $country) { ?>
-                                                            <option value="<?= $country['id']?>"><?= $country['name'] ?></option>
+                                                            <option value="<?= $country['id'] ?>"><?= $country['name'] ?></option>
                                                         <?php }
                                                         ?>
                                                     </select>
@@ -139,7 +139,7 @@ if (isset($_GET['success'])) {
                                                 <div class="form-group">
                                                     <label for="exampleInputUsername1">State</label>
                                                     <select name="state" class="form-control form-control-lg" id="state" required>
-                                                        <option value="" selected >Select State</option>
+                                                        <option value="" selected>Select State</option>
                                                     </select>
                                                 </div>
 
@@ -201,9 +201,11 @@ if (isset($_GET['success'])) {
                             <div class="col-12">
                                 <?php
                                 $id = $_SESSION['id'];
-                                $sql = "SELECT bin_categories.category_name,officers.name, pickup_records.* FROM pickup_records
+                                $sql = "SELECT bin_categories.category_name,officers.name,countries.name as country_name,states.name as state_name, pickup_records.* FROM pickup_records
                                 JOIN bin_categories on pickup_records.bin_category_id = bin_categories.id
                                 JOIN officers on pickup_records.officer_id = officers.id
+                                JOIN countries on pickup_records.country = countries.id
+                                JOIN states on pickup_records.state = states.id
                                 WHERE customer_id =:customer_id ORDER BY created_at DESC";
                                 $query = $db->fetchAll($sql, [
                                     'customer_id' => $id
@@ -223,12 +225,12 @@ if (isset($_GET['success'])) {
                                                     <th>Category Bin</th>
                                                     <th>Pickup Day</th>
                                                     <th>Neatness Score</th>
+                                                    <th>Comment</th>
                                                     <th>Apartment</th>
                                                     <th>Address</th>
                                                     <th>City</th>
                                                     <th>State</th>
                                                     <th>Country</th>
-                                                    <th>Comment</th>
                                                     <th>Created At</th>
                                                     <th>Status</th>
                                                     <th>Actions</th>
@@ -259,23 +261,24 @@ if (isset($_GET['success'])) {
                                                                 echo "No rating yet";
                                                             } else {
                                                                 if ($result['neatness_score'] == 5) { ?>
-                                                                    <span style="font-size:120%;color:yellow;">★</span>
-                                                                    <span style="font-size:120%;color:red;">☆</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
                                                                 <?php } elseif ($result['neatness_score'] == 4) { ?>
-                                                                    <span style="font-size:120%;color:red;">☆</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
                                                                 <?php } elseif ($result['neatness_score'] == 3) { ?>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+
                                                                 <?php } elseif ($result['neatness_score'] == 2) { ?>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
                                                                 <?php } elseif ($result['neatness_score'] == 1) { ?>
                                                                     <span style="font-size:120%;color:blue;">★</span>
                                                                 <?php } else { ?>
@@ -288,18 +291,18 @@ if (isset($_GET['success'])) {
                                                         </td>
                                                         <td>
                                                             <?= $result['apartment_no'] ?>
-                                                        </td> 
+                                                        </td>
                                                         <td>
                                                             <?= $result['address'] ?>
                                                         </td>
-                                                         <td>
-                                                            <?= $result['city'] ?>
-                                                        </td> 
                                                         <td>
-                                                            <?= $result['state'] ?>
+                                                            <?= $result['city'] ?>
                                                         </td>
                                                         <td>
-                                                            <?= $result['country'] ?>
+                                                            <?= $result['state_name'] ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $result['country_name'] ?>
                                                         </td>
                                                         <td>
                                                             <?= date('d-m-Y', strtotime($result['created_at'])) ?>
@@ -346,22 +349,22 @@ if (isset($_GET['success'])) {
                 // function changeCountry(val){
                 //     alert('you select a country '+ val)
                 // }
-                $(function(){
-                    $('#country').on('change', function(){
+                $(function() {
+                    $('#country').on('change', function() {
                         // alert('hello')
                         let country = $(this).find(":selected").val();
                         console.log(country);
                         if (country == "") {
                             alert('Please select a country')
-                        }else{
+                        } else {
                             let State = $("#state").html(
-                "<option disabled selected> Select a State </option>"
-            );
+                                "<option disabled selected> Select a State </option>"
+                            );
                             $.ajax({
                                 type: "GET",
-                                url: "backend/state.php?country_id="+ country,
-                                dataType : "JSON",
-                                success: function(data){
+                                url: "backend/state.php?country_id=" + country,
+                                dataType: "JSON",
+                                success: function(data) {
                                     console.log(data.data);
                                     let states = data.data;
                                     let state = states.map((items) => {
@@ -371,13 +374,13 @@ if (isset($_GET['success'])) {
                                             .html(items.name);
                                     });
                                     State.append(state);
-                                }, 
-                                error: function(err){
+                                },
+                                error: function(err) {
                                     console.log(err.message);
                                 }
                             });
                         }
-                        
+
                     })
                 })
             </script>

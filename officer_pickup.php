@@ -111,9 +111,11 @@ if (isset($_GET['success'])) {
                             <div class="col-12">
                                 <?php
                                 $id = $_SESSION['id'];
-                                $sql = "SELECT bin_categories.category_name,customers.name, pickup_records.* FROM pickup_records
+                                $sql = "SELECT bin_categories.category_name,customers.name,countries.name as country_name,states.name as state_name, pickup_records.* FROM pickup_records
                                 JOIN bin_categories on pickup_records.bin_category_id = bin_categories.id
                                 JOIN customers on pickup_records.customer_id = customers.id
+                                JOIN countries on pickup_records.country = countries.id
+                                JOIN states on pickup_records.state = states.id
                                 WHERE officer_id =:officer_id ORDER BY created_at DESC";
                                 $query = $db->fetchAll($sql, [
                                     'officer_id' => $id
@@ -168,25 +170,25 @@ if (isset($_GET['success'])) {
                                                                 echo "No rating yet";
                                                             } else {
                                                                 if ($result['neatness_score'] == 5) { ?>
-                                                                    <span style="font-size:120%;color:yellow;">★</span>
-                                                                    <span style="font-size:120%;color:red;">☆</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
                                                                 <?php } elseif ($result['neatness_score'] == 4) { ?>
-                                                                    <span style="font-size:120%;color:red;">☆</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
                                                                 <?php } elseif ($result['neatness_score'] == 3) { ?>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
                                                                 <?php } elseif ($result['neatness_score'] == 2) { ?>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
                                                                 <?php } elseif ($result['neatness_score'] == 1) { ?>
-                                                                    <span style="font-size:120%;color:blue;">★</span>
+                                                                    <span style="font-size:150%;color:black;">☆</span>
                                                                 <?php } else { ?>
                                                                     <span style="font-size:120%;color:black;">☆</span>
                                                                 <?php } ?>
@@ -197,18 +199,18 @@ if (isset($_GET['success'])) {
                                                         </td>
                                                         <td>
                                                             <?= $result['apartment_no'] ?>
-                                                        </td> 
+                                                        </td>
                                                         <td>
                                                             <?= $result['address'] ?>
                                                         </td>
-                                                         <td>
-                                                            <?= $result['city'] ?>
-                                                        </td> 
                                                         <td>
-                                                            <?= $result['state'] ?>
+                                                            <?= $result['city'] ?>
                                                         </td>
                                                         <td>
-                                                            <?= $result['country'] ?>
+                                                            <?= $result['state_name'] ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $result['country_name'] ?>
                                                         </td>
                                                         <td>
                                                             <?= date('d-m-Y', strtotime($result['created_at'])) ?>

@@ -123,25 +123,25 @@ $query = $db->fetchAll(
                                                     echo "No rating yet";
                                                 } else {
                                                     if ($result['neatness_score'] == 5) { ?>
-                                                        <span style="font-size:120%;color:yellow;">★</span>
-                                                        <span style="font-size:120%;color:red;">☆</span>
-                                                        <span style="font-size:120%;color:blue;">★</span>
-                                                        <span style="font-size:120%;color:blue;">★</span>
-                                                        <span style="font-size:120%;color:blue;">★</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
                                                     <?php } elseif ($result['neatness_score'] == 4) { ?>
-                                                        <span style="font-size:120%;color:red;">☆</span>
-                                                        <span style="font-size:120%;color:blue;">★</span>
-                                                        <span style="font-size:120%;color:blue;">★</span>
-                                                        <span style="font-size:120%;color:blue;">★</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
                                                     <?php } elseif ($result['neatness_score'] == 3) { ?>
-                                                        <span style="font-size:120%;color:blue;">★</span>
-                                                        <span style="font-size:120%;color:blue;">★</span>
-                                                        <span style="font-size:120%;color:blue;">★</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
                                                     <?php } elseif ($result['neatness_score'] == 2) { ?>
-                                                        <span style="font-size:120%;color:blue;">★</span>
-                                                        <span style="font-size:120%;color:blue;">★</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
                                                     <?php } elseif ($result['neatness_score'] == 1) { ?>
-                                                        <span style="font-size:120%;color:blue;">★</span>
+                                                        <span style="font-size:150%;color:black;">☆</span>
                                                     <?php } else { ?>
                                                         <span style="font-size:120%;color:black;">☆</span>
                                                     <?php } ?>
