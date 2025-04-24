@@ -14,7 +14,7 @@ if (isset($_GET['customer_id']) && !empty($_GET['customer_id'])) {
     ]);
 
     if (!empty($query)) {
-        if (count($query) >= 3) {
+        if (count($query) == 1) {
             //Check if customer have a fine this month or not
             $customer_id = $_GET['customer_id'];
             $sql = "SELECT * FROM pickup_records WHERE customer_id =:customer_id AND MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE())";

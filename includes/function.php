@@ -1,3 +1,4 @@
+
 <?php
 class Database
 {
@@ -7,18 +8,22 @@ class Database
      * @var string
      */
     private $host = "localhost";
+
     /**
      * dbname
      *
      * @var string
      */
     private $dbname = "waste_mgs";
+
+
     /**
      * username
      *
      * @var string
      */
     private $username = "root";
+
     /**
      * password
      *
@@ -46,21 +51,21 @@ class Database
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES => false,
             ]);
-            $this->createRegionTable();
-            $this->createBinCategoryTable();
-            $this->createCustomerTable();
-            $this->createOfficersTable();
-            $this->createPickUpRecordsTable();
-            $this->createRewardsTable();
-            $this->createFinesTable();
-            $this->createRegionCustomersTable();
-            $this->createOfficersRegionsTable();
-            $this->createCustomerPickUpsTable();
-            $this->createOfficerPickUpsTable();
-            $this->createBinCategoryPickUpsTable();
-            $this->createStateStateTable();
-            $this->createAdminsTable();
-            $this->createPayOutsTable();
+            // $this->createRegionTable();
+            // $this->createBinCategoryTable();
+            // $this->createCustomerTable();
+            // $this->createOfficersTable();
+            // $this->createPickUpRecordsTable();
+            // $this->createRewardsTable();
+            // $this->createFinesTable();
+            // $this->createRegionCustomersTable();
+            // $this->createOfficersRegionsTable();
+            // $this->createCustomerPickUpsTable();
+            // $this->createOfficerPickUpsTable();
+            // $this->createBinCategoryPickUpsTable();
+            // $this->createStateStateTable();
+            // $this->createAdminsTable();
+            // $this->createPayOutsTable();
         } catch (PDOException $e) {
             die("Database Connection Failed: " . $e->getMessage());
         }

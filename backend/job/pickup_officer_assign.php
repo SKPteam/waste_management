@@ -17,10 +17,13 @@ if (!empty($query)) {
         ]);
         if (!empty($customer)) {
             $region_id = $customer['region_id'];
+
             //Check available officer using the region id
             $region_officer = $db->fetch("SELECT officer_id FROM officer_regions WHERE region_id=:region_id ORDER BY RAND() LIMIT 1", [
                 'region_id' => $region_id
             ]);
+            // echo $region_officer;
+            // exit;
             if (!empty($region_officer)) {
 
                 //Create Officer Pick data
