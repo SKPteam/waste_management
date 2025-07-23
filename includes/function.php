@@ -1,5 +1,6 @@
 
 <?php
+
 class Database
 {
     /**
@@ -66,6 +67,7 @@ class Database
             $this->createStateStateTable();
             $this->createAdminsTable();
             $this->createPayOutsTable();
+            var_dump($_ENV['DB_NAME']);
         } catch (PDOException $e) {
             die("Database Connection Failed: " . $e->getMessage());
         }
