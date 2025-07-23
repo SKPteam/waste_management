@@ -46,21 +46,21 @@ $query = $db->fetchAll(
                             <i class="icon-sm fas fa-check-circle mr-2"></i>
                             Total Fine
                         </p>
-                        <h2>0</h2>
+                        <h2>&#8358;0</h2>
                     </div>
                     <div class="statistics-item">
                         <p>
                             <i class="icon-sm fas fa-chart-line mr-2"></i>
                             Rewards
                         </p>
-                        <h2>0</h2>
+                        <h2>&#8358;0</h2>
                     </div>
                     <div class="statistics-item">
                         <p>
                             <i class="icon-sm fas fa-circle-notch mr-2"></i>
                             Payout
                         </p>
-                        <h2>0</h2>
+                        <h2>&#8358;0</h2>
                     </div>
                 </div>
             </div>

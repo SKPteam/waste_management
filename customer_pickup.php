@@ -180,7 +180,7 @@ if (isset($_GET['success'])) {
                                             $sql = "SELECT region_name, region_code FROM regions WHERE id = :id";
                                             $query = $db->fetch($sql, ['id' => $id]);
                                             ?>
-                                            <form class="forms-sample" action="backend/region.php" method="post">
+                                            <!-- <form class="forms-sample" action="backend/region.php" method="post">
                                                 <div class="form-group">
                                                     <label for="exampleInputUsername1">Region name</label>
                                                     <input type="text" name="name" value="<?= $query['region_name'] ?? '' ?>" required class="form-control" id="exampleInputUsername1" placeholder="Region name">
@@ -193,7 +193,7 @@ if (isset($_GET['success'])) {
                                                 <input type="hidden" name="id" value="<?= $id ?? '' ?>">
 
                                                 <button type="submit" class="btn btn-primary mr-2" name="submit">Update</button>
-                                            </form>
+                                            </form> -->
                                         </div>
                                     </div>
                                 </div>

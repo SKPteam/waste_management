@@ -51,16 +51,16 @@ if (isset($_POST['submit'])) {
                 if ($insertData) {
 
                     //Insert to Bin Category
-                    // $db->execute("INSERT INTO bin_category_pickups (bin_category_id, pickup_record_id) VALUES(:bin_category_id, :pickup_record_id)", [
-                    //     'bin_category_id' => $bin_category_id,
-                    //     'pickup_record_id' => $db->lastInsertId(),
-                    // ]);
+                    $db->execute("INSERT INTO bin_category_pickups (bin_category_id, pickup_record_id) VALUES(:bin_category_id, :pickup_record_id)", [
+                        'bin_category_id' => $bin_category_id,
+                        'pickup_record_id' => $db->lastInsertId(),
+                    ]);
 
                     //Customer Pick Up
-                    // $db->execute("INSERT INTO customer_pickups (pickup_record_id, customer_id) VALUES(:pickup_record_id, :customer_id)", [
-                    //     'pickup_record_id' => $db->lastInsertId(),
-                    //     'customer_id' => $customer_id,
-                    // ]);
+                    $db->execute("INSERT INTO customer_pickups (pickup_record_id, customer_id) VALUES(:pickup_record_id, :customer_id)", [
+                        'pickup_record_id' => $db->lastInsertId(),
+                        'customer_id' => $customer_id,
+                    ]);
                     header("Location: job/pickup_officer_assign.php");
                 } else {
                     $error_message = "Unable to create pickup, contact support";

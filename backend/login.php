@@ -14,7 +14,6 @@ if (isset($_POST['submit'])) {
     } else {
         if ($role == "admin") {
             //Admin Login
-
             $sql = "SELECT id,email, password FROM admins WHERE email = :email";
             $query = $db->fetch($sql, ['email' => $email]);
             if (empty($query)) {
@@ -60,6 +59,7 @@ if (isset($_POST['submit'])) {
                 $error_message = "Invalid credentials,Kindly check.";
                 header("Location: ../index.php?error=" . $error_message);
             } else {
+                // return $query;
                 if (!isset($_SESSION['last_login_time'])) {
                     $_SESSION['id'] = $query['id'];
                     $_SESSION['role'] = "customer";

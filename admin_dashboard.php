@@ -88,7 +88,7 @@ $TodayPickups = $db->fetchAll($sql6);
                             <i class="icon-sm fas fa-chart-line mr-2"></i>
                             Total Rewards
                         </p>
-                        <h2><?= number_format($total_rewards, 2) ?></h2>
+                        <h2>&#8358;<?= number_format($total_rewards, 2) ?></h2>
                         <!-- <label class="badge badge-outline-success badge-pill">10% increase</label> -->
                     </div>
                     <div class="statistics-item">
@@ -97,7 +97,7 @@ $TodayPickups = $db->fetchAll($sql6);
                             Payouts
                         </p>
                         <h2>
-                            <?= number_format($total_payouts, 2) ?>
+                            &#8358; <?= number_format($total_payouts, 2) ?>
                         </h2>
                         <!-- <label class="badge badge-outline-danger badge-pill">16% decrease</label> -->
                     </div>

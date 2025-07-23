@@ -67,7 +67,7 @@ foreach ($payouts as $payout) {
                             <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
                             Monthly Reward
                         </p>
-                        <h2>$<?= $total_rewards ?></h2>
+                        <h2>&#8358;<?= $total_rewards ?></h2>
 
                     </div>
                     <div class="statistics-item">
@@ -75,7 +75,7 @@ foreach ($payouts as $payout) {
                             <i class="icon-sm fas fa-check-circle mr-2"></i>
                             Last Payout
                         </p>
-                        <h2>$<?= number_format($total_payouts, 2) ?></h2>
+                        <h2>&#8358;<?= number_format($total_payouts, 2) ?></h2>
                     </div>
                 </div>
             </div>

@@ -7,10 +7,10 @@
                 </div>
                 <div class="profile-name">
                     <p class="name">
-                        Welcome <?= $_SESSION['role'] == 'admin' ? 'Admin' : ucfirst($_SESSION['name']) ?>
+                        Welcome <?= $_SESSION['role'] == 'admin' ? 'Admin' : $_SESSION['name'] ?>
                     </p>
                     <p class="designation">
-                        <?= $_SESSION['role'] == 'admin' ? 'Administrator' : ucfirst($_SESSION['role']) ?>
+                        <?= $_SESSION['role'] == 'admin' ? 'Administrator' : ($_SESSION['role']) ?>
                     </p>
                 </div>
             </div>
