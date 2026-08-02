@@ -21,7 +21,6 @@ if (!$db->CheckLogin()) {
             <div class="content-wrapper">
                 <div class="page-header">
                     <h3 class="page-title">
-
                         <!-- <a href="customer_pickup.php?action=create" class="btn btn-info mr-2">Create Pickup</a> -->
                     </h3>
                 </div>

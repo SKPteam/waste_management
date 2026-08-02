@@ -346,9 +346,7 @@ if (isset($_GET['success'])) {
             <script src="assets/js/data-table.js">
             </script>
             <script>
-                // function changeCountry(val){
-                //     alert('you select a country '+ val)
-                // }
+                
                 $(function() {
                     $('#country').on('change', function() {
                         // alert('hello')
